@@ -1,57 +1,114 @@
-# Lumina Shader Lite
+# Lumina Shader: Lite Edition
 
-Lumina Shader Lite is a lightweight Minecraft: Java Edition shader pack designed for low-end computers and integrated graphics. It keeps the atmosphere and visual identity of Lumina Shaders while focusing on smoother performance and practical customization.
+<p align="center">
+  A high-performance Minecraft: Java Edition shader pack designed for low-end
+  PCs, laptops, and integrated graphics without losing the Lumina atmosphere.
+</p>
 
-## Features
-
-- Performance profiles ranging from Potato to Ultra
-- Lightweight defaults for low-end hardware
-- Customizable shadows, lighting, clouds, water, bloom, reflections, and post-processing
-- Reimagined and Unbound visual styles
-- Optional PBR resource-pack support
-- Iris and OptiFine shader-loader support
-- Distant Horizons shader integration
-
-## Compatibility
-
-Lumina Shader Lite is made for **Minecraft: Java Edition**.
-
-- Recommended versions: **Minecraft 1.16.5–1.21.x**
-- New version numbering: **Minecraft 26.1.x–26.2**
-- Recommended shader loader: **Iris**
-- Also supported: **OptiFine**
-- Bedrock Edition is not supported
-
-Compatibility can vary depending on the Minecraft version, shader loader, graphics driver, installed mods, and GPU. Iris is recommended for the best experience and access to Iris-specific features.
+<p align="center">
+  <a href="https://github.com/benjamincalledur10-bit/Lumina_Shader_Lite/releases/latest"><img alt="Latest GitHub release" src="https://img.shields.io/github/v/release/benjamincalledur10-bit/Lumina_Shader_Lite?style=for-the-badge"></a>
+  <a href="https://modrinth.com/shader/lumina-shader-lite"><img alt="Modrinth downloads" src="https://img.shields.io/modrinth/dt/70O0661F?style=for-the-badge&logo=modrinth&label=Modrinth"></a>
+  <a href="https://www.curseforge.com/minecraft/shaders/lumina-shader-lite"><img alt="CurseForge downloads" src="https://img.shields.io/curseforge/dt/1490563?style=for-the-badge&logo=curseforge&label=CurseForge"></a>
+</p>
 
 ## Download
 
-Use an official project page to download the latest release:
+Use one of the official distribution pages:
 
+- [GitHub Releases](https://github.com/benjamincalledur10-bit/Lumina_Shader_Lite/releases/latest)
 - [Modrinth](https://modrinth.com/shader/lumina-shader-lite)
 - [CurseForge](https://www.curseforge.com/minecraft/shaders/lumina-shader-lite)
-- [GitHub Releases](https://github.com/benjamincalledur10-bit/Lumina_Shader_Lite/releases)
+
+The current stable release is **v1.2.3**. Download
+`Lumina_Shader_Lite_v1.2.3.zip` and keep it compressed when installing it.
+
+## Highlights
+
+- **High-performance rendering:** lightweight defaults and carefully balanced
+  effects for smoother gameplay on modest hardware.
+- **Vanilla+ presentation:** vibrant color, clean fog, stylized clouds, and a
+  polished atmosphere that preserves Minecraft's visual identity.
+- **Scalable profiles:** seven presets from Potato to Ultra for quick
+  performance and quality adjustments.
+- **Customizable lighting:** controls for shadows, ambient occlusion, light
+  shafts, bloom, reflections, and dimension-specific lighting.
+- **Water and material effects:** configurable water, generated normals,
+  coated textures, and optional PBR resource-pack support.
+- **Cinematic controls:** temporal anti-aliasing, motion blur, depth of field,
+  color grading, sharpening, and lens effects.
+- **Extended rendering support:** dedicated shader programs for Distant
+  Horizons terrain and water.
+
+## Compatibility
+
+| Component | Support |
+| --- | --- |
+| Game | Minecraft: Java Edition 1.16.5 through 1.21.x and 26.1.x–26.2 |
+| Shader loaders | Iris and OptiFine |
+| Rendering profiles | Potato, Very Low, Low, Medium, High, Very High, Ultra |
+| Edition | Java Edition only; Bedrock Edition is not supported |
+
+[Iris](https://www.irisshaders.dev/) is recommended for modern Minecraft
+versions and access to Iris-specific features. Performance and compatibility
+depend on resolution, render distance, selected profile, resource packs, mods,
+graphics driver, and GPU.
 
 ## Installation
 
-1. Install [Iris](https://www.irisshaders.dev/) or OptiFine for your Minecraft version.
-2. Download the Lumina Shader Lite `.zip` file from an official project page.
-3. Place the file in your Minecraft `shaderpacks` folder.
-4. Do **not** extract the ZIP.
-5. Open Minecraft, go to the shader-pack menu, and select Lumina Shader Lite.
+1. Install [Iris](https://www.irisshaders.dev/) or a compatible OptiFine
+   version.
+2. Download `Lumina_Shader_Lite_v1.2.3.zip` from an official source above.
+3. Open Minecraft and go to **Options > Video Settings > Shader Packs**.
+4. Open the shader-pack folder and place the downloaded ZIP inside it. Do not
+   extract the archive.
+5. Return to Minecraft, select **Lumina Shader Lite**, and apply the settings.
+6. Start with the Low or Medium profile, then adjust quality for your hardware.
 
-If performance is limited, begin with the **Potato**, **Very Low**, or **Low** profile and increase the settings gradually.
+The default shader-pack directory is usually:
 
-## Releases and changelog
+```text
+~/.minecraft/shaderpacks
+```
 
-The current stable release is **Lumina Shader Lite v1.2.3**. See [CHANGELOG.md](CHANGELOG.md) for the latest fixes and release notes.
+## Configuration tips
+
+- Start with Potato, Very Low, or Low when using integrated graphics.
+- Reduce shadow distance, cloud quality, reflections, and light-shaft quality
+  first when targeting higher frame rates.
+- Raise one setting at a time so performance changes are easy to measure.
+- Select the matching material mode when using a resource pack with PBR
+  textures.
+- Reset the shader profile after upgrading if settings from an older release
+  cause unexpected visuals.
+
+## Development
+
+- `main` contains the current stable, published state.
+- `luminalitedev` is used for development and validation before a release.
+- Every release is documented in [CHANGELOG.md](CHANGELOG.md).
+- Bugs and reproducible visual issues can be reported through
+  [GitHub Issues](https://github.com/benjamincalledur10-bit/Lumina_Shader_Lite/issues).
+
+When reporting a problem, include the Minecraft version, shader loader and
+version, GPU, graphics-driver version, active shader profile, and screenshots or
+logs when available.
 
 ## Credits
 
-Lumina Shader Lite is based on Lumina Event Horizon and uses code from [Complementary Shaders](https://www.complementary.dev/). Complementary Development retains the rights described in the included license agreement.
+- **Main developer:** Benjiaa
+- Lumina Shader Lite is part of the Lumina series and is based on Lumina Event
+  Horizon.
+- This is a modified pack based on
+  [Complementary Reimagined](https://modrinth.com/shader/complementary-reimagined)
+  by EminGT. Special thanks to EminGT and the Complementary shader community.
 
-## License and modpacks
+## Community and support
 
-This project is distributed under the included [Complementary License Agreement](License.txt). Please read it before modifying or redistributing the pack.
+- [Discord community](https://discord.gg/JK6rTQ9T)
+- [Support development on Ko-fi](https://ko-fi.com/lumina_dev/goal?g=0)
 
-Modpack authors must add the shader through the existing Modrinth or CurseForge systems. Direct redistribution of the ZIP is not permitted. Additional credit and usage requirements are described in the license.
+Lumina Shader Lite is distributed under the included
+[Complementary License Agreement 1.6](License.txt). Modpacks must add the pack
+through the existing Modrinth or CurseForge systems; direct redistribution of
+the ZIP is not permitted. Read the complete license before modifying or
+redistributing the project.
