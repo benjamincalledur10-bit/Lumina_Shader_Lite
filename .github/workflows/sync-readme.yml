@@ -1,0 +1,45 @@
+name: Sync README release metadata
+
+on:
+  schedule:
+    - cron: "17 12 */2 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-lumina-lite-readme
+  cancel-in-progress: false
+
+jobs:
+  sync-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Compare official releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/sync_readme.py
+
+      - name: Commit a real README update
+        run: |
+          if git diff --quiet -- README.md; then
+            echo "README already matches the official releases."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update Lumina Lite README release metadata"
+          git push origin HEAD:main

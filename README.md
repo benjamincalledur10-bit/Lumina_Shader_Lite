@@ -43,7 +43,7 @@ The current stable release is **v1.2.3**. Download
 
 | Component | Support |
 | --- | --- |
-| Game | Minecraft: Java Edition 1.16.5 through 1.21.x and 26.1.x–26.2 |
+| Game | Minecraft: Java Edition 1.16.5 through 1.21.11 and 26.1 through 26.2 |
 | Shader loaders | Iris and OptiFine |
 | Rendering profiles | Potato, Very Low, Low, Medium, High, Very High, Ultra |
 | Edition | Java Edition only; Bedrock Edition is not supported |
