@@ -8,7 +8,7 @@ profile.MEDIUM=§aMedium
 profile.HIGH=§eHigh (Default)
 profile.VERYHIGH=§cVery High
 profile.ULTRA=§4§lUltra
-profile.COMPLEMENTARY=§6§l§n§oLumina Shader - Lite v1.2.3
+profile.COMPLEMENTARY=§6§l§n§oLumina Shader - Lite v1.2.2
 profile.comment=Shader profiles change performance settings with the most optimised visual fidelity to performance ratio. §e[*]§r It's recommended to use one of these profiles for your settings unless you know what you are doing. §e[*]§r All affected settings can all be found in the "Performance Settings" menu.
 
 #Information
