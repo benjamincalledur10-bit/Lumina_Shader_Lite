@@ -161,7 +161,7 @@
             color.a = 0.52;
 
             #ifdef DISTANT_HORIZONS
-                if (depthT == 1.0) color.a *= smoothstep(far, far * 0.9, lViewPos);
+                if (depthT == 1.0) color.a *= 1.0 - smoothstep(far * 0.9, far, lViewPos);
             #endif
 
             #if WATER_FOG_MULT != 100

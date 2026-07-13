@@ -51,9 +51,9 @@ vec2 view = vec2(viewWidth, viewHeight);
 
     vec2 sharpenOffsets[4] = vec2[4](
         vec2( viewD.x,  0.0),
-        vec2( 0.0,  viewD.x),
+        vec2( 0.0,  viewD.y),
         vec2(-viewD.x,  0.0),
-        vec2( 0.0, -viewD.x)
+        vec2( 0.0, -viewD.y)
     );
 
     void SharpenImage(inout vec3 color, vec2 texCoordM) {
@@ -172,7 +172,7 @@ void main() {
     #endif
 
     float dither = texture2DLod(noisetex, texCoord * view / 128.0, 0.0).b;
-    color += vec3((dither - 0.25) / 128.0);
+    color += vec3((dither - 0.5) / 128.0);
 
     /* DRAWBUFFERS:0 */
     gl_FragData[0] = vec4(color, 1.0);
