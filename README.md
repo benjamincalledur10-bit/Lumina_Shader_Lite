@@ -7,6 +7,7 @@
 
 <p align="center">
   <a href="https://github.com/benjamincalledur10-bit/Lumina_Shader_Lite/releases/latest"><img alt="Latest GitHub release" src="https://img.shields.io/github/v/release/benjamincalledur10-bit/Lumina_Shader_Lite?style=for-the-badge"></a>
+  <a href="https://github.com/benjamincalledur10-bit/Lumina_Shader_Lite/releases"><img alt="GitHub downloads" src="https://img.shields.io/github/downloads/benjamincalledur10-bit/Lumina_Shader_Lite/total?style=for-the-badge&logo=github&label=GitHub%20downloads"></a>
   <a href="https://modrinth.com/shader/lumina-shader-lite"><img alt="Modrinth downloads" src="https://img.shields.io/modrinth/dt/70O0661F?style=for-the-badge&logo=modrinth&label=Modrinth"></a>
   <a href="https://www.curseforge.com/minecraft/shaders/lumina-shader-lite"><img alt="CurseForge downloads" src="https://img.shields.io/curseforge/dt/1490563?style=for-the-badge&logo=curseforge&label=CurseForge"></a>
 </p>
