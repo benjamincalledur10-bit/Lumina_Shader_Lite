@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.2.4-rc.1 - 2026-07-17
+
+Pre-release candidate for in-game validation. This is not yet the stable v1.2.4 release.
+
+### Fixed
+
+- Prevented zero-luminance color normalization from generating invalid `NaN` values.
+- Corrected temporal reprojection for Distant Horizons LOD geometry to reduce ghosting during camera movement.
+
+### Optimized
+
+- Reused squared lightmap values during shadow sampling to avoid redundant per-fragment calculations.
+
+### Validation
+
+- Added automated checks for JSON metadata, shader includes, preprocessor balance, default profile mapping, and ZIP/source parity.
+
 ## 1.2.3 - 2026-07-13
 
 Lumina Shader Lite 1.2.3 is a maintenance release focused exclusively on bug fixes. It does not introduce intentional visual changes or new features.

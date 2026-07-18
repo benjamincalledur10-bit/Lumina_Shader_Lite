@@ -97,8 +97,11 @@ vec3 GetShadow(vec3 shadowPos, float lightmapY, float offset, int shadowSamples,
         #endif
     #endif
 
-    float colorMult = 2.5 + 5.5 * pow1_5(lightmapY) + 2.0 * pow2(lightmapY); // 423HDSS: Shadow color strength is stored 10 times lower to allow for water shadows going above 1.0
-    float colorPow = mix(1.5 + 0.5 * float(isEyeInWater == 0), 0.5, pow2(pow2(lightmapY)));
+    float lightmapY2 = pow2(lightmapY);
+    float lightmapY4 = pow2(lightmapY2);
+
+    float colorMult = 2.5 + 5.5 * pow1_5(lightmapY) + 2.0 * lightmapY2; // 423HDSS: Shadow color strength is stored 10 times lower to allow for water shadows going above 1.0
+    float colorPow = mix(1.5 + 0.5 * float(isEyeInWater == 0), 0.5, lightmapY4);
 
     #if SHADOW_QUALITY >= 1
         vec3 shadow = SampleTAAFilteredShadow(shadowPos, offset, shadowSamples, leaves, colorMult, colorPow);

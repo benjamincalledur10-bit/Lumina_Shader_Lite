@@ -65,6 +65,21 @@ vec2 Reprojection(vec4 viewPos1) {
     return previousPosition.xy / previousPosition.w * 0.5 + 0.5;
 }
 
+#ifdef DISTANT_HORIZONS
+    vec2 ReprojectionDH(vec3 screenPos) {
+        screenPos = screenPos * 2.0 - 1.0;
+
+        vec4 viewPosPrev = dhProjectionInverse * vec4(screenPos, 1.0);
+        viewPosPrev /= viewPosPrev.w;
+        viewPosPrev = gbufferModelViewInverse * viewPosPrev;
+
+        vec4 previousPosition = viewPosPrev + vec4(cameraPosition - previousCameraPosition, 0.0);
+        previousPosition = gbufferPreviousModelView * previousPosition;
+        previousPosition = dhPreviousProjection * previousPosition;
+        return previousPosition.xy / previousPosition.w * 0.5 + 0.5;
+    }
+#endif
+
 vec3 ClipAABB(vec3 q, vec3 aabb_min, vec3 aabb_max){
     vec3 p_clip = 0.5 * (aabb_max + aabb_min);
     vec3 e_clip = 0.5 * (aabb_max - aabb_min) + 0.00000001;
@@ -161,6 +176,17 @@ void DoTAA(inout vec3 color, inout vec3 temp, float z1) {
     vec2 prvCoord = texCoord;
     if (z1 > 0.56) prvCoord = Reprojection(viewPos1);
 
+    #ifdef DISTANT_HORIZONS
+        bool dhChunk = false;
+        if (z1 == 1.0) {
+            float dhDepth = texture2D(dhDepthTex1, texCoord).r;
+            if (dhDepth < 1.0) {
+                prvCoord = ReprojectionDH(vec3(texCoord, dhDepth));
+                dhChunk = true;
+            }
+        }
+    #endif
+
     #if TAA_MOVEMENT_IMPROVEMENT_FILTER == 1
         vec3 tempColor = textureCatmullRom(colortex2, prvCoord, view);
     #else
@@ -179,11 +205,11 @@ void DoTAA(inout vec3 color, inout vec3 temp, float z1) {
         edge *= extraEdgeMult;
 
     #ifdef DISTANT_HORIZONS
-        if (z0 == 1.0) {
+        if (dhChunk) {
             blendMinimum = 0.75;
             blendVariable = 0.05;
-            blendConstant = 0.9;
-            edge = 1.0;
+            blendConstant = 0.85;
+            edge = 0.0;
         }
     #endif
 
