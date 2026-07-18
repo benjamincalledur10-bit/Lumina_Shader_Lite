@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.2.4-rc.4 - 2026-07-17
+
+Fourth in-game test candidate. This is not yet the stable v1.2.4 release.
+
+### Fixed
+
+- Removed the narrow parallel streaks that made the RC3 Milky Way resemble a light curtain.
+
+### Changed
+
+- Widened the galactic glow and changed its orientation to form a more natural diagonal arc across the sky.
+- Replaced directional cloud textures with two layers of isotropic value noise to create rounded galactic masses without parallel streaks.
+- Warped the central dust lane with independent large and medium cloud structures.
+- Increased the separation between the cool outer haze and warm galactic core while keeping the midnight background dark.
+
+### Performance
+
+- Removed all Milky Way texture samples and added no new texture assets.
+
 ## 1.2.4-rc.3 - 2026-07-17
 
 Third in-game test candidate. This is not yet the stable v1.2.4 release.
