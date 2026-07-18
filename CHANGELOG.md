@@ -1,23 +1,27 @@
 # Changelog
 
-## 1.2.4-rc.4 - 2026-07-17
+## 1.2.4 - 2026-07-17
 
-Fourth in-game test candidate. This is not yet the stable v1.2.4 release.
+Stable release based on the fourth in-game test candidate. It combines internal stability and performance work with a new lightweight Milky Way effect.
+
+### Added
+
+- Added a wide diagonal Milky Way arc with rounded galactic clouds, a warm core, cool outer haze, and a warped central dust lane.
 
 ### Fixed
 
-- Removed the narrow parallel streaks that made the RC3 Milky Way resemble a light curtain.
+- Prevented zero-luminance color normalization from generating invalid `NaN` values.
+- Corrected temporal reprojection for Distant Horizons LOD geometry to reduce ghosting during camera movement.
+- Removed directional streaks from the Milky Way while preserving the dark midnight background and existing stars.
 
-### Changed
+### Optimized
 
-- Widened the galactic glow and changed its orientation to form a more natural diagonal arc across the sky.
-- Replaced directional cloud textures with two layers of isotropic value noise to create rounded galactic masses without parallel streaks.
-- Warped the central dust lane with independent large and medium cloud structures.
-- Increased the separation between the cool outer haze and warm galactic core while keeping the midnight background dark.
+- Reused squared lightmap values during shadow sampling to avoid redundant per-fragment calculations.
+- Built the Milky Way without texture samples, new assets, or volumetric ray marching.
 
-### Performance
+### Validation
 
-- Removed all Milky Way texture samples and added no new texture assets.
+- Added automated checks for JSON metadata, shader includes, preprocessor balance, default profile mapping, and ZIP/source parity.
 
 ## 1.2.4-rc.3 - 2026-07-17
 

@@ -20,8 +20,8 @@ Use one of the official distribution pages:
 - [Modrinth](https://modrinth.com/shader/lumina-shader-lite)
 - [CurseForge](https://www.curseforge.com/minecraft/shaders/lumina-shader-lite)
 
-The current stable release is **v1.2.3**. Download
-`Lumina_Shader_Lite_v1.2.3.zip` and keep it compressed when installing it.
+The current stable release is **v1.2.4**. Download
+`Lumina_Shader_Lite_v1.2.4.zip` and keep it compressed when installing it.
 
 ## Highlights
 
@@ -58,7 +58,7 @@ graphics driver, and GPU.
 
 1. Install [Iris](https://www.irisshaders.dev/) or a compatible OptiFine
    version.
-2. Download `Lumina_Shader_Lite_v1.2.3.zip` from an official source above.
+2. Download `Lumina_Shader_Lite_v1.2.4.zip` from an official source above.
 3. Open Minecraft and go to **Options > Video Settings > Shader Packs**.
 4. Open the shader-pack folder and place the downloaded ZIP inside it. Do not
    extract the archive.
