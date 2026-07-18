@@ -91,6 +91,7 @@ void main() {
 
         vec2 starCoord = GetStarCoord(viewPos.xyz, 0.5);
         color.rgb += GetStars(starCoord, VdotU, VdotS);
+        color.rgb += GetMilkyWay(nViewPos, VdotU, VdotS);
 
         #if SUN_MOON_STYLE >= 2
             float absVdotS = abs(VdotS);

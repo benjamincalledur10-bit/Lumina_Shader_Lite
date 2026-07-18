@@ -38,6 +38,7 @@ void AddBackgroundReflection(inout vec4 reflection, vec3 color, vec3 playerPos, 
                     
                     vec2 starCoord = GetStarCoord(nViewPosR, 0.5);
                     skyReflection += GetStars(starCoord, RVdotU, RVdotS);
+                    skyReflection += GetMilkyWay(nViewPosR, RVdotU, RVdotS);
 
                     #ifdef VL_CLOUDS_ACTIVE
                         vec3 worldNormalMR = normalize(mat3(gbufferModelViewInverse) * normalMR);

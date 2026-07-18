@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.2.4-rc.2 - 2026-07-17
+
+Second in-game test candidate. This is not yet the stable v1.2.4 release.
+
+### Added
+
+- Added a subtle, tilted Milky Way band at night while preserving the existing dark midnight sky and stars.
+- Added a lightweight central dust lane and gentle brightness variation to give the band natural structure.
+
+### Performance
+
+- The Milky Way uses an analytic shader calculation with no additional texture samples, loops, or volumetric noise.
+- Added the same subtle band to eligible high-quality sky reflections for visual consistency.
+
 ## 1.2.4-rc.1 - 2026-07-17
 
 Pre-release candidate for in-game validation. This is not yet the stable v1.2.4 release.
