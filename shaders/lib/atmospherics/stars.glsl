@@ -60,25 +60,28 @@ float GetGalaxyNoise(vec2 coord) {
 vec3 GetMilkyWay(vec3 viewDir, float VdotU, float VdotS) {
     if (VdotU < -0.05) return vec3(0.0);
 
-    vec3 worldDir = normalize(mat3(gbufferModelViewInverse) * viewDir);
-    const vec3 galacticNormal = vec3(0.310, 0.783, 0.539);
-    const vec3 galacticAxis = vec3(0.867, 0.0, -0.498);
-    vec3 galacticSide = cross(galacticNormal, galacticAxis);
+    vec3 skyDir = normalize(viewDir);
+    vec3 eastAxis = normalize(gbufferModelView[0].xyz);
+    vec3 galacticNormal = normalize(0.74 * upVec + 0.45 * sunVec + 0.50 * eastAxis);
+    vec3 galacticAxis = normalize(cross(galacticNormal, upVec));
+    vec3 galacticSide = normalize(cross(galacticNormal, galacticAxis));
 
-    float signedDistance = dot(worldDir, galacticNormal);
+    float signedDistance = dot(skyDir, galacticNormal);
     float planeDistance = abs(signedDistance);
-    float longitude = atan(dot(worldDir, galacticSide), dot(worldDir, galacticAxis));
 
-    // Two rotated value-noise layers create rounded masses instead of directional streaks.
-    vec2 cloudCoord = vec2(longitude * 1.15 + signedDistance * 3.2,
-                           longitude * -0.72 + signedDistance * 5.1);
+    // Projecting directly onto the galactic basis keeps the pattern continuous around the sphere.
+    float alongPlane = dot(skyDir, galacticAxis);
+    float acrossPlane = dot(skyDir, galacticSide);
+    vec2 cloudCoord = vec2(alongPlane * 3.4 + signedDistance * 2.2,
+                           acrossPlane * 3.4 + signedDistance * 3.1);
     float cloudLarge = GetGalaxyNoise(cloudCoord + vec2(3.7, 8.2));
-    float cloudMedium = GetGalaxyNoise(cloudCoord * 2.13 + vec2(11.4, 2.6));
-    float cloudShape = cloudLarge * 0.68 + cloudMedium * 0.32;
+    float cloudMedium = cloudLarge * cloudLarge * (3.0 - 2.0 * cloudLarge);
+    float cloudShape = mix(cloudLarge, cloudMedium, 0.35);
 
     float wideBand = 1.0 - smoothstep(0.10, 0.48, planeDistance);
     float denseBand = 1.0 - smoothstep(0.035, 0.24, planeDistance);
-    float galacticCenter = 1.0 - smoothstep(0.18, 1.45, abs(longitude - 0.25));
+    vec3 galacticCenterDir = normalize(0.94 * galacticAxis + 0.34 * galacticSide);
+    float galacticCenter = smoothstep(-0.15, 0.82, dot(skyDir, galacticCenterDir));
     float dustWarp = signedDistance + (cloudLarge - 0.5) * 0.055 + (cloudMedium - 0.5) * 0.025;
     float dustLane = 1.0 - smoothstep(0.022, 0.09, abs(dustWarp));
     float cloudyDetail = smoothstep(0.22, 0.68, cloudShape);

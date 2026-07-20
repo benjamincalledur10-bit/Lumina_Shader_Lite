@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- Removed the spherical coordinate seam from the Milky Way cloud pattern.
+- Attached the galactic plane to the moving celestial basis so it follows the night sky.
+
+### Optimized
+
+- Reduced Milky Way value-noise hashing from eight trigonometric hashes per sky pixel to four.
+
 ## 1.2.4 - 2026-07-17
 
 Stable release based on the fourth in-game test candidate. It combines internal stability and performance work with a new lightweight Milky Way effect.
