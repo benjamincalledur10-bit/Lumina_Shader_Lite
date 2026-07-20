@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased (1.2.5)
+## 1.2.5-pre.1 - 2026-07-19
+
+Pre-release candidate for in-game validation before the stable v1.2.5 release.
 
 ### Changed
 
