@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## Unreleased (1.2.5)
+
+### Changed
+
+- Shifted the clear daytime horizon and distant atmospheric fog from pale white toward a cleaner sky blue.
 
 ### Fixed
 

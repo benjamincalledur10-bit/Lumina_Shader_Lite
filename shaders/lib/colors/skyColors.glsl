@@ -36,8 +36,8 @@
         vec3 noonUpSkyColor     = pow(skyColorM, vec3(2.9)) * (vec3(0.68, 0.82, 1.15) + rainFactor * nuscWeatherM);
         vec3 noonMiddleSkyColor = pow(skyColorM, vec3(1.5)) * (vec3(1.15, 1.3, 1.45) + rainFactor * (nmscWeatherM + nmscRainM + nmscSnowM + nmscDryM))
                                 + noonUpSkyColor * 0.65;
-        vec3 noonDownSkyColor   = skyColorM * (vec3(0.82, 0.92, 1.05) + rainFactor * (ndscWeatherM + ndscRainM + ndscSnowM + ndscDryM))
-                                + noonUpSkyColor * 0.25;
+        vec3 noonDownSkyColor   = skyColorM * (vec3(0.70, 0.94, 1.20) + rainFactor * (ndscWeatherM + ndscRainM + ndscSnowM + ndscDryM))
+                                + noonUpSkyColor * 0.22;
 
         vec3 sunsetUpSkyColor     = skyColorM2 * (vec3(0.75, 0.40, 0.60) + vec3(0.1, 0.2, 0.35) * rainFactor2);
         vec3 sunsetMiddleSkyColor = skyColorM2 * (vec3(2.1, 1.20, 0.80) + vec3(0.15, 0.25, -0.05) * rainFactor2);
