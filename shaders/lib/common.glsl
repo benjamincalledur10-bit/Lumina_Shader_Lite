@@ -165,6 +165,9 @@
 
     #define GLOWING_AMETHYST 1 //[0 1 2]
     #define GLOWING_LICHEN 1 //[0 1 2]
+    #define LAVA_BRIGHTNESS 100 //[25 40 50 60 75 100 125]
+    #define LAVA_EMISSIVE_INTENSITY 0.4
+    #define LAVA_EMISSION_LIMIT 2.0
     //#define EMISSIVE_REDSTONE_BLOCK
     //#define EMISSIVE_LAPIS_BLOCK
     //#define GLOWING_ARMOR_TRIM

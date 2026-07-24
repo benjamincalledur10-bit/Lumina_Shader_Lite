@@ -25,7 +25,8 @@
 
 noDirectionalShading = true;
 lmCoordM = vec2(0.0);
-emission = GetLuminance(color.rgb) * 7.48 + 0.5;
+float lavaEmission = (GetLuminance(color.rgb) * 7.48 + 0.5) * LAVA_EMISSIVE_INTENSITY;
+emission = min(lavaEmission * (LAVA_BRIGHTNESS * 0.01), LAVA_EMISSION_LIMIT);
 
 maRecolor = vec3(clamp(pow2(pow2(pow2(smoothstep1(emission * 0.28)))), 0.12, 0.4) * 1.3) * vec3(0.25, vec2(0.175));
 

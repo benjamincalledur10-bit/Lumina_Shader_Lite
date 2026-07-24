@@ -99,7 +99,8 @@ void main() {
     } else if (mat == DH_BLOCK_ILLUMINATED) {
         emission = 2.5;
     } else if (mat == DH_BLOCK_LAVA) {
-        emission = 1.5;
+        float lavaEmission = 3.75 * LAVA_EMISSIVE_INTENSITY;
+        emission = min(lavaEmission * (LAVA_BRIGHTNESS * 0.01), LAVA_EMISSION_LIMIT);
     }
 
     #ifdef SNOWY_WORLD

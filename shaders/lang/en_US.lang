@@ -866,6 +866,16 @@ value.GLOWING_LICHEN.0=OFF
 value.GLOWING_LICHEN.1=In Closed Areas
 value.GLOWING_LICHEN.2=Always
 
+option.LAVA_BRIGHTNESS=Lava Brightness
+option.LAVA_BRIGHTNESS.comment=Adjusts lava emission independently from torches and lanterns. Lower this value if large lava lakes cause excessive bloom or overexposure.
+value.LAVA_BRIGHTNESS.25=25%
+value.LAVA_BRIGHTNESS.40=40%
+value.LAVA_BRIGHTNESS.50=50%
+value.LAVA_BRIGHTNESS.60=60%
+value.LAVA_BRIGHTNESS.75=75%
+value.LAVA_BRIGHTNESS.100=100%
+value.LAVA_BRIGHTNESS.125=125%
+
 option.EMISSIVE_REDSTONE_BLOCK=Glowing Redstone Block
 
 option.EMISSIVE_LAPIS_BLOCK=Glowing Lapis Lazuli Block

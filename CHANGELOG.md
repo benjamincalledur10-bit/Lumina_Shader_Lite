@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased (1.2.5)
+
+### Changed
+
+- Added an independent Lava Brightness slider under IntegratedPBR+ glowing-material settings.
+
+### Fixed
+
+- Limited lava emission and bloom input so large lava surfaces no longer overexpose the image to white.
+
 ## 1.2.5-pre.1 - 2026-07-19
 
 Pre-release candidate for in-game validation before the stable v1.2.5 release.

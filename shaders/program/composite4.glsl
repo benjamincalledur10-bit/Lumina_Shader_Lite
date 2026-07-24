@@ -19,6 +19,7 @@ const bool colortex0MipmapEnabled = true;
 
 //Common Variables//
 float weight[7] = float[7](1.0, 6.0, 15.0, 20.0, 15.0, 6.0, 1.0);
+const float bloomInputLimit = 4.0;
 
 vec2 view = vec2(viewWidth, viewHeight);
 
@@ -46,6 +47,7 @@ vec3 BloomTile(float lod, vec2 offset, vec2 scaledCoord) {
         bloom /= 4096.0;
     }
 
+    bloom = min(bloom, vec3(bloomInputLimit)); // Prevent extreme emissives from saturating bloom/tonemapping
     return pow(bloom / 128.0, vec3(0.25));
 }
 
