@@ -538,6 +538,16 @@ value.NIGHT_STAR_AMOUNT.2=Medium
 value.NIGHT_STAR_AMOUNT.3=High
 value.NIGHT_STAR_AMOUNT.4=Very High
 
+option.MILKY_WAY_BRIGHTNESS=Milky Way Brightness
+option.MILKY_WAY_BRIGHTNESS.comment=Adjusts the brightness of the Milky Way. OFF disables its shader calculations for a small performance improvement.
+value.MILKY_WAY_BRIGHTNESS.0=OFF
+value.MILKY_WAY_BRIGHTNESS.25=25%
+value.MILKY_WAY_BRIGHTNESS.50=50%
+value.MILKY_WAY_BRIGHTNESS.75=75%
+value.MILKY_WAY_BRIGHTNESS.100=100%
+value.MILKY_WAY_BRIGHTNESS.125=125%
+value.MILKY_WAY_BRIGHTNESS.150=150%
+
 option.RAINBOWS=Rainbows
 option.RAINBOWS.comment=Enables rainbows that appear at the opposite side of the sun during the morning/evening.
 value.RAINBOWS.0=OFF

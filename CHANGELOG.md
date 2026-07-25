@@ -2,6 +2,11 @@
 
 ## Unreleased (1.2.5)
 
+### Added
+
+- Added a Milky Way Brightness control under Environment & Sky with OFF, 25%, 50%, 75%, 100%, 125%, and 150% levels.
+- Disabling the Milky Way now removes its procedural calculation from the compiled sky and reflection shaders.
+
 ### Changed
 
 - Added an independent Lava Brightness slider under IntegratedPBR+ glowing-material settings.

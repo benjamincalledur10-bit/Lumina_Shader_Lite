@@ -47,6 +47,7 @@ vec3 GetStars(vec2 starCoord, float VdotU, float VdotS) {
     return 40.0 * star * vec3(0.38, 0.4, 0.5);
 }
 
+#if MILKY_WAY_BRIGHTNESS > 0
 float GetGalaxyNoise(vec2 coord) {
     vec2 cell = floor(coord);
     vec2 blend = fract(coord);
@@ -95,5 +96,7 @@ vec3 GetMilkyWay(vec3 viewDir, float VdotU, float VdotS) {
 
     vec3 outerColor = vec3(0.07, 0.085, 0.13);
     vec3 coreColor = vec3(0.22, 0.125, 0.105);
-    return galaxy * mix(outerColor, coreColor, galacticCenter * (0.45 + 0.55 * cloudLarge));
+    return galaxy * mix(outerColor, coreColor, galacticCenter * (0.45 + 0.55 * cloudLarge))
+           * (MILKY_WAY_BRIGHTNESS * 0.01);
 }
+#endif

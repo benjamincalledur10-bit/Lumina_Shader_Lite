@@ -70,6 +70,7 @@
     #define SUN_MOON_HORIZON
     #define SUN_MOON_DURING_RAIN
     #define NIGHT_STAR_AMOUNT 2 //[0 1 2 3 4]
+    #define MILKY_WAY_BRIGHTNESS 100 //[0 25 50 75 100 125 150]
     #define RAINBOWS 1 //[0 1 3]
     #define RAINBOW_STYLE_DEFINE -1 //[-1 1 4]
     #define CLOUD_QUALITY 1 //[0 1 2 3]
