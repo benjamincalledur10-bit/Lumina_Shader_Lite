@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased (1.2.5)
+## 1.2.5 - 2026-07-25
+
+Stable release focused on sky customization, clearer distant atmosphere, safer emissive lighting, and inherited weather-color corrections.
 
 ### Added
 
