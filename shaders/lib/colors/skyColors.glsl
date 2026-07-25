@@ -20,10 +20,10 @@
             vec3 nmscRainMP = vec3(-0.15, 0.025, 0.1);
             vec3 ndscRainMP = vec3(-0.125, -0.005, 0.125);
             #ifdef SPECIAL_BIOME_WEATHER
-                vec3 nmscRainM = inRainy * ndscRainMP;
+                vec3 nmscRainM = inRainy * nmscRainMP;
                 vec3 ndscRainM = inRainy * ndscRainMP;
             #else
-                vec3 nmscRainM = ndscRainMP;
+                vec3 nmscRainM = nmscRainMP;
                 vec3 ndscRainM = ndscRainMP;
             #endif
         #else

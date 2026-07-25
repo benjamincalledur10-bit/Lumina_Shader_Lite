@@ -14,6 +14,7 @@
 ### Fixed
 
 - Limited lava emission and bloom input so large lava surfaces no longer overexpose the image to white.
+- Corrected the middle-sky color used by the Heavy & Colder rainy-weather style.
 
 ## 1.2.5-pre.1 - 2026-07-19
 
