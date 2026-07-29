@@ -27,6 +27,7 @@ flat in vec4 glColor;
 void main() {
     vec4 color = texture2D(tex, texCoord);
     color *= glColor;
+    if (color.a < 0.1) discard;
 
     color.rgb *= glColor.a; // Needed for Minecraft's "Glint Strength" apparently
 

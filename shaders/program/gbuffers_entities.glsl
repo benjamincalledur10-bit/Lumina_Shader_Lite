@@ -97,6 +97,7 @@ void main() {
         vec3 colorP = color.rgb;
     #endif
     color *= glColor;
+    if (color.a < 0.1) discard;
 
     float smoothnessD = 0.0, materialMask = OSIEBCA * 254.0; // No SSAO, No TAA, Reduce Reflection
     vec2 lmCoordM = lmCoord;

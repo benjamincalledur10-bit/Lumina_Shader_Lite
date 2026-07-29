@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- Discarded near-transparent entity and armor-glint fragments to prevent black rectangles around enchanted armor and players.
+
 ## 1.2.5 - 2026-07-25
 
 Stable release focused on sky customization, clearer distant atmosphere, safer emissive lighting, and inherited weather-color corrections.
