@@ -35,7 +35,8 @@ void DoNaturalShadowCalculation(inout vec4 color1, inout vec4 color2) {
     color1.rgb *= 1.0 - pow(color1.a, 64.0);
     color1.rgb *= 0.1; // 423HDSS: Shadow color strength is stored 10 times lower to allow for water shadows going above 1.0
 
-    color2.rgb = normalize(color1.rgb) * 0.5;
+    float colorLength = length(color1.rgb);
+    color2.rgb = colorLength > 0.00001 ? color1.rgb / colorLength * 0.5 : vec3(0.0);
 }
 
 //Includes//
@@ -161,7 +162,9 @@ void main() {
                     color1.rgb *= 1.0 - pow(color1.a, 64.0);
                     color1.rgb *= 0.14; // 423HDSS
 
-                    color2.rgb = normalize(pow(color1.rgb, vec3(0.25))) * 0.5;
+                    vec3 iceShaftColor = pow(max(color1.rgb, vec3(0.0)), vec3(0.25));
+                    float iceColorLength = length(iceShaftColor);
+                    color2.rgb = iceColorLength > 0.00001 ? iceShaftColor / iceColorLength * 0.5 : vec3(0.0);
                 }
             }
         } else {

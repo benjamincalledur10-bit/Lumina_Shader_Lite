@@ -22,7 +22,7 @@ subsurfaceMode = 2;
 
 #ifdef SNOWY_WORLD
     snowMinNdotU = min(pow2(pow2(color.g)), 0.1);
-    color.rgb = color.rgb * 0.5 + 0.5 * (color.rgb / glColor.rgb);
+    color.rgb = color.rgb * 0.5 + 0.5 * (color.rgb / max(glColor.rgb, vec3(0.001)));
 #endif
 
 #if SHADOW_QUALITY > -1 && SHADOW_QUALITY < 3 && defined OVERWORLD

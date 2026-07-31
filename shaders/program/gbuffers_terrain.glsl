@@ -273,7 +273,7 @@ void main() {
         else if (mat == 10132) { // Grass Block:Normal
             if (glColor.b < 0.999) { // Grass Block:Normal:Grass Part
                 snowMinNdotU = min(pow2(pow2(color.g)) * 1.9, 0.1);
-                color.rgb = color.rgb * 0.5 + 0.5 * (color.rgb / glColor.rgb);
+                color.rgb = color.rgb * 0.5 + 0.5 * (color.rgb / max(glColor.rgb, vec3(0.001)));
             }
         }
         #endif

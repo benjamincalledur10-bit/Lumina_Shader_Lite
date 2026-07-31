@@ -167,7 +167,7 @@ if (mat < 11024) {
                                     #endif
                                     if (cauldronInteriorCheck && NdotU > 0.9) {
                                         #if WATER_STYLE < 3
-                                            vec3 colorP = color.rgb / glColor.rgb;
+                                            vec3 colorP = color.rgb / max(glColor.rgb, vec3(0.001));
                                             smoothnessG = min(pow2(pow2(dot(colorP.rgb, colorP.rgb) * 0.4)), 1.0);
                                             highlightMult = 3.25;
                                             smoothnessD = 0.8;
@@ -381,7 +381,7 @@ if (mat < 11024) {
 
                                         #ifdef SNOWY_WORLD
                                             snowMinNdotU = min(pow2(pow2(color.g)) * 1.9, 0.1);
-                                            color.rgb = color.rgb * 0.5 + 0.5 * (color.rgb / glColor.rgb);
+                                            color.rgb = color.rgb * 0.5 + 0.5 * (color.rgb / max(glColor.rgb, vec3(0.001)));
                                         #endif
                                     } else { //Grass Block:Normal:Dirt Part
                                         #include "/lib/materials/specificMaterials/terrain/dirt.glsl"
@@ -1734,7 +1734,7 @@ if (mat < 11024) {
                                     #if COLORED_LIGHTING_INTERNAL == 0
                                         emission = pow2(min(color.r, 0.9)) * 4.0;
                                     #else
-                                        vec3 colorP = color.rgb / glColor.rgb;
+                                        vec3 colorP = color.rgb / max(glColor.rgb, vec3(0.001));
                                         emission = pow2((colorP.r + color.r) * 0.5) * 3.5;
                                     #endif
 

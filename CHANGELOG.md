@@ -5,6 +5,11 @@
 ### Fixed
 
 - Discarded near-transparent entity and armor-glint fragments to prevent black rectangles around enchanted armor and players.
+- Prevented zero-length shadow colors from producing `NaN` values in natural and ice light shafts.
+- Stabilized cloud-shadow projection when the sun aligns with a horizontal world axis.
+- Protected biome-tint removal from division by zero in snowy terrain, leaves, and IPBR materials.
+- Preserved intentionally translucent modded entities while still discarding fully transparent fragments.
+- Removed unavailable Advanced Color Tracing controls from the Lite interface and profiles.
 
 ## 1.2.5 - 2026-07-25
 

@@ -20,9 +20,11 @@
         #ifdef CLOUDS_REIMAGINED
             float EdotL = dot(eastVec, lightVec);
             float EdotLM = tan(acos(EdotL));
+            EdotLM = EdotLM < 0.0 ? min(EdotLM, -0.0001) : max(EdotLM, 0.0001);
 
             #if SUN_ANGLE != 0
                 float NVdotLM = tan(acos(dot(northVec, lightVec)));
+                NVdotLM = NVdotLM < 0.0 ? min(NVdotLM, -0.0001) : max(NVdotLM, 0.0001);
             #endif
 
             float distToCloudLayer1 = cloudAlt1i - worldPos.y;
