@@ -19,6 +19,7 @@ INCLUDE_PATTERN = re.compile(r'^\s*#include\s+["<]([^">]+)[">]')
 OPEN_PATTERN = re.compile(r"^\s*#(?:if|ifdef|ifndef)\b")
 ELSE_PATTERN = re.compile(r"^\s*#(?:else|elif)\b")
 END_PATTERN = re.compile(r"^\s*#endif\b")
+VERSION_PATTERN = r"\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?"
 
 
 def fail(message: str) -> None:
@@ -117,14 +118,44 @@ def validate_default_profile() -> int:
     return len(profile)
 
 
-def validate_version(version: str) -> None:
-    required = {
-        SHADERS / "pack.json": version,
-        SHADERS / "lang/en_US.lang": version,
+def metadata_versions() -> dict[Path, str]:
+    pack_path = SHADERS / "pack.json"
+    lang_path = SHADERS / "lang/en_US.lang"
+
+    with pack_path.open(encoding="utf-8-sig") as handle:
+        description = json.load(handle)["pack"]["description"]
+    pack_match = re.search(rf"\bLite v({VERSION_PATTERN}):", description)
+    if not pack_match:
+        fail(f"Could not extract an exact version from {pack_path.relative_to(ROOT)}")
+
+    lang_text = lang_path.read_text(encoding="utf-8-sig")
+    lang_match = re.search(
+        rf"^profile\.COMPLEMENTARY=.*Lite v({VERSION_PATTERN})\s*$",
+        lang_text,
+        re.MULTILINE,
+    )
+    if not lang_match:
+        fail(f"Could not extract an exact version from {lang_path.relative_to(ROOT)}")
+
+    return {
+        pack_path: pack_match.group(1),
+        lang_path: lang_match.group(1),
     }
-    for path, expected in required.items():
-        if expected not in path.read_text(encoding="utf-8-sig"):
-            fail(f"{path.relative_to(ROOT)} does not contain version {version}")
+
+
+def validate_version(version: str | None = None) -> str:
+    found = metadata_versions()
+    unique_versions = set(found.values())
+    if len(unique_versions) != 1:
+        details = ", ".join(
+            f"{path.relative_to(ROOT)}={actual}" for path, actual in found.items()
+        )
+        fail(f"Shader metadata versions do not match: {details}")
+
+    actual = unique_versions.pop()
+    if version is not None and actual != version:
+        fail(f"Expected exact version {version}, found {actual}")
+    return actual
 
 
 def release_members() -> dict[str, bytes]:
@@ -166,12 +197,12 @@ def main() -> int:
     include_count = validate_includes()
     preprocessor_count = validate_preprocessors()
     profile_count = validate_default_profile()
-    if args.version:
-        validate_version(args.version)
+    metadata_version = validate_version(args.version)
     zip_count = validate_zip(args.zip) if args.zip else 0
 
     print(
         "Validation passed: "
+        f"version {metadata_version}, "
         f"{json_count} JSON files, {include_count} includes, "
         f"{preprocessor_count} preprocessor files, {profile_count} profile values"
         + (f", {zip_count} ZIP members" if args.zip else "")

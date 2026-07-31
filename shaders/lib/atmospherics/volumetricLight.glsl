@@ -233,8 +233,12 @@ vec4 GetVolumetricLight(inout vec3 color, inout float vlFactor, vec3 translucent
     }
 
     #ifdef LIGHTSHAFT_SMOKE
-        volumetricLight *= pow(totalSmoke / volumetricLight.a, min(1.0 - volumetricLight.a, 0.5));
-        volumetricLight.rgb /= pow(0.5, 1.0 - volumetricLight.a);
+        if (volumetricLight.a > 0.00001) {
+            float smokeAlpha = clamp01(volumetricLight.a);
+            float smokeAverage = max(totalSmoke / volumetricLight.a, 0.00001);
+            volumetricLight *= pow(smokeAverage, min(1.0 - smokeAlpha, 0.5));
+            volumetricLight.rgb /= pow(0.5, 1.0 - smokeAlpha);
+        }
     #endif
 
     // Decision of Intensity for Scene Aware Light Shafts //

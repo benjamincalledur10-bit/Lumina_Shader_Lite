@@ -10,6 +10,13 @@
 - Protected biome-tint removal from division by zero in snowy terrain, leaves, and IPBR materials.
 - Preserved intentionally translucent modded entities while still discarding fully transparent fragments.
 - Removed unavailable Advanced Color Tracing controls from the Lite interface and profiles.
+- Prevented high water-wave settings from producing invalid normal-map square roots.
+- Protected Lightshaft Smoke from division by zero in empty volumetric samples.
+
+### Validation
+
+- Version checks now compare exact metadata values and reject pre-release suffix mismatches.
+- Added automatic shader validation for development pushes and pull requests.
 
 ## 1.2.5 - 2026-07-25
 

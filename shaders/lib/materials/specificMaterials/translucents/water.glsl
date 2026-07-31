@@ -115,7 +115,7 @@
                 normalMap.xy *= 2.0 - 1.8 * fresnel2;
         #endif
 
-            normalMap.z = sqrt(1.0 - (pow2(normalMap.x) + pow2(normalMap.y)));
+            normalMap.z = sqrt(max(1.0 - dot(normalMap.xy, normalMap.xy), 0.0));
             normalM = clamp(normalize(normalMap * tbnMatrix), vec3(-1.0), vec3(1.0));
 
         #if WATER_STYLE == 1
