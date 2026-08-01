@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.2.6 - 2026-08-01
+
+Stable maintenance release focused on shader robustness, rendering correctness, and stricter release validation.
 
 ### Fixed
 

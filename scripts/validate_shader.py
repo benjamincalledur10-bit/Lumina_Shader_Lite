@@ -27,7 +27,11 @@ def fail(message: str) -> None:
 
 
 def shader_files() -> list[Path]:
-    return sorted(path for path in SHADERS.rglob("*") if path.is_file())
+    return sorted(
+        path
+        for path in SHADERS.rglob("*")
+        if path.is_file() and path.name != ".DS_Store"
+    )
 
 
 def validate_json() -> int:
