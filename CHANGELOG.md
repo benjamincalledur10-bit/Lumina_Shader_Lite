@@ -1,24 +1,31 @@
 # Changelog
 
-## 1.2.6 - 2026-08-01
+## 🌌 Lumina Shader Lite v1.2.6 — 2026-08-01
 
-Stable maintenance release focused on shader robustness, rendering correctness, and stricter release validation.
+This maintenance update makes Lumina Shader Lite more stable in difficult rendering conditions while preserving its lightweight design and visual identity. ✨
 
-### Fixed
+### 🛠️ Fixed — Rendering Stability
 
-- Discarded near-transparent entity and armor-glint fragments to prevent black rectangles around enchanted armor and players.
-- Prevented zero-length shadow colors from producing `NaN` values in natural and ice light shafts.
-- Stabilized cloud-shadow projection when the sun aligns with a horizontal world axis.
-- Protected biome-tint removal from division by zero in snowy terrain, leaves, and IPBR materials.
-- Preserved intentionally translucent modded entities while still discarding fully transparent fragments.
-- Removed unavailable Advanced Color Tracing controls from the Lite interface and profiles.
-- Prevented high water-wave settings from producing invalid normal-map square roots.
-- Protected Lightshaft Smoke from division by zero in empty volumetric samples.
+- 🛡️ Prevented black rectangles around enchanted armor and players by safely discarding near-transparent fragments.
+- 🌤️ Prevented invalid `NaN` values in natural and ice light shafts when shadow colors have no length.
+- ☁️ Stabilized cloud-shadow projection when the sun aligns with a horizontal world axis.
+- ❄️ Protected biome-tint removal from division by zero on snowy terrain, leaves, and IPBR materials.
+- 💧 Prevented high water-wave settings from producing invalid normal-map calculations.
+- 🌫️ Protected Lightshaft Smoke from division by zero in empty volumetric samples.
 
-### Validation
+### 🎨 Improved — Compatibility & Interface
 
-- Version checks now compare exact metadata values and reject pre-release suffix mismatches.
-- Added automatic shader validation for development pushes and pull requests.
+- 👻 Preserved intentionally translucent modded entities while still discarding fully transparent fragments.
+- 🎛️ Removed unavailable Advanced Color Tracing controls from the Lite interface and profiles.
+
+### ✅ Validation
+
+- 🔍 Version checks now require exact metadata matches and reject incorrect pre-release suffixes.
+- 🤖 Added automatic shader validation for development pushes, `main`, and pull requests.
+- 📦 Verified shader includes, preprocessor blocks, default profiles, metadata, and ZIP/source parity.
+- 🧹 Confirmed that the final ZIP contains 397 files with no unnecessary macOS metadata.
+
+💙 Thank you for using Lumina Shader Lite! Enjoy a cleaner, safer, and more stable visual experience.
 
 ## 1.2.5 - 2026-07-25
 
