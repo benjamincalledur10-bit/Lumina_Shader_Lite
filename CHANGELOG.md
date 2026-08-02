@@ -1,5 +1,13 @@
 # Changelog
 
+## 🧪 Unreleased
+
+### 🛠️ Fixed
+
+- 🎛️ Removed obsolete Advanced Color Tracing and World-Space Reflections controls from Lite profiles and the optimization menu.
+- 🧹 Removed the orphaned Advanced Color Tracing settings-screen definition.
+- 🧭 Protected custom labPBR normal-map reconstruction from negative square-root inputs caused by floating-point precision.
+
 ## 🌌 Lumina Shader Lite v1.2.6 — 2026-08-01
 
 This maintenance update makes Lumina Shader Lite more stable in difficult rendering conditions while preserving its lightweight design and visual identity. ✨
