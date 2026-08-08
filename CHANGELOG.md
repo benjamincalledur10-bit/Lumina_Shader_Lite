@@ -7,6 +7,11 @@
 - 🎛️ Removed obsolete Advanced Color Tracing and World-Space Reflections controls from Lite profiles and the optimization menu.
 - 🧹 Removed the orphaned Advanced Color Tracing settings-screen definition.
 - 🧭 Protected custom labPBR normal-map reconstruction from negative square-root inputs caused by floating-point precision.
+- 🧱 Initialized POM depth before every parallax path to prevent undefined custom-PBR displacement and slope normals.
+- 🌈 Protected pixelated rainbows from horizon-aligned division by zero.
+- ✨ Stabilized GGX highlights at degenerate half vectors and extreme reflection angles.
+- ☁️ Clamped cloud-shadow angles before inverse trigonometric projection.
+- 🔎 Added safe fallbacks for degenerate UV derivatives and transparent samples in anisotropic filtering.
 
 ### ✅ Validation
 

@@ -32,6 +32,7 @@ void GetCustomMaterials(inout vec4 color, inout vec3 normalM, inout vec2 lmCoord
             parallaxLocalCoord = vTexCoord.st;
 
             normalMap = ReadNormal(vTexCoord.st);
+            parallaxTexDepth = normalMap.a;
             parallaxFade += pow(normalMap.a, 64.0);
 
             if (parallaxFade < 1.0) {

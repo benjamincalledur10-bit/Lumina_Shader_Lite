@@ -18,12 +18,12 @@
         #endif
 
         #ifdef CLOUDS_REIMAGINED
-            float EdotL = dot(eastVec, lightVec);
+            float EdotL = clamp(dot(eastVec, lightVec), -1.0, 1.0);
             float EdotLM = tan(acos(EdotL));
             EdotLM = EdotLM < 0.0 ? min(EdotLM, -0.0001) : max(EdotLM, 0.0001);
 
             #if SUN_ANGLE != 0
-                float NVdotLM = tan(acos(dot(northVec, lightVec)));
+                float NVdotLM = tan(acos(clamp(dot(northVec, lightVec), -1.0, 1.0)));
                 NVdotLM = NVdotLM < 0.0 ? min(NVdotLM, -0.0001) : max(NVdotLM, 0.0001);
             #endif
 
