@@ -2,6 +2,9 @@
 
 #ifdef OVERWORLD
     #include "/lib/atmospherics/sky.glsl"
+    #ifdef MOON_HALO
+        #include "/lib/atmospherics/moonHalo.glsl"
+    #endif
 #endif
 #if defined END && defined COMPOSITE
     #include "/lib/atmospherics/enderBeams.glsl"

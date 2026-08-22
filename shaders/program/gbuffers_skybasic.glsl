@@ -35,6 +35,9 @@ float shadowTime = shadowTimeVar2 * shadowTimeVar2;
 #ifdef OVERWORLD
     #include "/lib/atmospherics/sky.glsl"
     #include "/lib/atmospherics/stars.glsl"
+    #ifdef MOON_HALO
+        #include "/lib/atmospherics/moonHalo.glsl"
+    #endif
 #endif
 
 #ifdef CAVE_FOG
@@ -93,6 +96,9 @@ void main() {
         color.rgb += GetStars(starCoord, VdotU, VdotS);
         #if MILKY_WAY_BRIGHTNESS > 0
             color.rgb += GetMilkyWay(nViewPos, VdotU, VdotS);
+        #endif
+        #ifdef MOON_HALO
+            color.rgb += GetMoonHalo(VdotS);
         #endif
 
         #if SUN_MOON_STYLE >= 2

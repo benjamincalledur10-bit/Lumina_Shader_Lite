@@ -530,6 +530,12 @@ option.SUN_MOON_HORIZON.comment=Prevents the sun/moon from appearing below the h
 option.SUN_MOON_DURING_RAIN=Sun/Moon During Rain. §e[*]§r
 option.SUN_MOON_DURING_RAIN.comment=Determines if the sun and moon will be visible during rain or not. §e[*]§r This setting also changes the balance of lighting during rain.
 
+option.MOON_HALO=Moon Halo
+option.MOON_HALO.comment=Adds a lightweight procedural glow around the moon. Cloud cover, rain, and moon phases naturally reduce its visibility.
+
+option.MOON_HALO_I=Moon Halo Intensity
+option.MOON_HALO_I.comment=Adjusts the brightness of the procedural moon halo in the sky and reflections.
+
 option.NIGHT_STAR_AMOUNT=Night Star Amount
 option.NIGHT_STAR_AMOUNT.comment=Determines the amount of stars in the night sky.
 value.NIGHT_STAR_AMOUNT.0=Off
