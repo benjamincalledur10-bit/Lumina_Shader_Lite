@@ -16,7 +16,7 @@ screen.LUMINA_INFO.comment=This section contains buttons that only exist to prov
 
 option.info0=§bHover your mouse on a button
 value.info0.0=
-option.info0.comment=Lumina Shader Lite v1.2.7-rc.4. This section contains buttons that only exist to provide information.
+option.info0.comment=Lumina Shader Lite v1.2.7. This section contains buttons that only exist to provide information.
 
 option.info1=How to get more performance
 value.info1.0=

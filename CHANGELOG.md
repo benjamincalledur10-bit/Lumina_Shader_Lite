@@ -1,5 +1,39 @@
 # Changelog
 
+## 🚀 Lumina Shader Lite v1.2.7 — 2026-08-27
+
+This release delivers Lumina Lite's first comprehensive performance pass for integrated graphics, stronger shader stability, and a cleaner out-of-box experience.
+
+### ⚡ Real Optimization
+
+- 🎚️ Rebalanced all seven performance profiles into a consistent quality ladder from Potato to Ultra.
+- 🥔 Removed expensive shadows, reflections, SSAO, shader clouds, and entity shadows from Potato; Very Low also avoids the shadow pass.
+- 🪞 Prevented unused advanced-reflection programs from compiling on Low and lighter profiles, reducing shader activation work and runtime overhead.
+- 🎬 Skipped inactive temporal antialiasing and other post-processing passes on minimum detail quality.
+- ✨ Reduced low-detail bloom filtering from 49 to 25 samples per active tile.
+- 🌊 Reduced low-detail procedural water normals from four texture reads to two.
+- 🚀 Made Low the factory-default profile for a better balance of visuals, performance, and battery usage.
+
+### ✨ Visuals
+
+- 🌕 Added an optional procedural moon halo with configurable intensity and support in eligible sky reflections.
+
+### 🛠️ Stability and Fixes
+
+- 🎛️ Removed obsolete Advanced Color Tracing and World-Space Reflections controls and their orphaned settings screen.
+- 🧭 Protected custom labPBR normal reconstruction from invalid square roots.
+- 🧱 Initialized POM depth across every parallax path to prevent undefined displacement and slope normals.
+- 🌈 Prevented division by zero in pixelated rainbows near the horizon.
+- ✨ Stabilized GGX highlights at degenerate half vectors and extreme reflection angles.
+- ☁️ Clamped cloud-shadow angles before inverse-trigonometric projection.
+- 🔎 Added safe anisotropic-filtering fallbacks for degenerate UV derivatives and transparent samples.
+- 🌊 Ensured low-detail water compiles correctly across Potato, Very Low, and Low.
+
+### 🎨 Interface and Validation
+
+- 🧹 Removed the inherited Complementary profile so clean installations correctly show Low as the active default.
+- 🧪 Added automated validation for menus, sliders, profiles, lightweight program paths, metadata, includes, and release ZIP parity.
+
 ## 🧪 Lumina Shader Lite v1.2.7-rc.4 — 2026-08-27
 
 Final optimization release candidate, making Low the factory-default profile and removing the inherited Complementary profile entry.
