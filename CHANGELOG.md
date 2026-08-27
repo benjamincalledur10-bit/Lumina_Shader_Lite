@@ -1,5 +1,102 @@
 # Changelog
 
+## 🚀 Lumina Shader Lite v1.2.7 — 2026-08-27
+
+This release delivers Lumina Lite's first comprehensive performance pass for integrated graphics, stronger shader stability, and a cleaner out-of-box experience.
+
+### ⚡ Real Optimization
+
+- 🎚️ Rebalanced all seven performance profiles into a consistent quality ladder from Potato to Ultra.
+- 🥔 Removed expensive shadows, reflections, SSAO, shader clouds, and entity shadows from Potato; Very Low also avoids the shadow pass.
+- 🪞 Prevented unused advanced-reflection programs from compiling on Low and lighter profiles, reducing shader activation work and runtime overhead.
+- 🎬 Skipped inactive temporal antialiasing and other post-processing passes on minimum detail quality.
+- ✨ Reduced low-detail bloom filtering from 49 to 25 samples per active tile.
+- 🌊 Reduced low-detail procedural water normals from four texture reads to two.
+- 🚀 Made Low the factory-default profile for a better balance of visuals, performance, and battery usage.
+
+### ✨ Visuals
+
+- 🌕 Added an optional procedural moon halo with configurable intensity and support in eligible sky reflections.
+
+### 🛠️ Stability and Fixes
+
+- 🎛️ Removed obsolete Advanced Color Tracing and World-Space Reflections controls and their orphaned settings screen.
+- 🧭 Protected custom labPBR normal reconstruction from invalid square roots.
+- 🧱 Initialized POM depth across every parallax path to prevent undefined displacement and slope normals.
+- 🌈 Prevented division by zero in pixelated rainbows near the horizon.
+- ✨ Stabilized GGX highlights at degenerate half vectors and extreme reflection angles.
+- ☁️ Clamped cloud-shadow angles before inverse-trigonometric projection.
+- 🔎 Added safe anisotropic-filtering fallbacks for degenerate UV derivatives and transparent samples.
+- 🌊 Ensured low-detail water compiles correctly across Potato, Very Low, and Low.
+
+### 🎨 Interface and Validation
+
+- 🧹 Removed the inherited Complementary profile so clean installations correctly show Low as the active default.
+- 🧪 Added automated validation for menus, sliders, profiles, lightweight program paths, metadata, includes, and release ZIP parity.
+
+## 🧪 Lumina Shader Lite v1.2.7-rc.4 — 2026-08-27
+
+Final optimization release candidate, making Low the factory-default profile and removing the inherited Complementary profile entry.
+
+### ⚡ Optimized
+
+- 🚀 Changed the shader's factory defaults to match the Low profile, including its lightweight material, shadow, antialiasing, and post-processing paths.
+
+### 🎨 Interface
+
+- 🧹 Removed the inherited Complementary profile from the profile selector so new installations identify Low as the active default.
+
+### ✅ Validation
+
+- 🧪 Updated release metadata and default-profile validation to use the new Low baseline.
+
+## 🧪 Lumina Shader Lite v1.2.7-rc.3 — 2026-08-27
+
+Hotfix release candidate restoring Potato, Very Low, and Low profile compatibility after the RC2 water optimization.
+
+### 🛠️ Fixed
+
+- 🌊 Restored low-detail water shader compilation by keeping the optional small-wave normal available to later lighting calculations without restoring its texture lookup.
+
+## 🧪 Lumina Shader Lite v1.2.7-rc.2 — 2026-08-27
+
+Second release candidate for v1.2.7, introducing the first real-optimization pass for low-end hardware and integrated graphics.
+
+### ⚡ Optimized
+
+- 🎚️ Rebalanced every performance profile into a consistent quality ladder, with expensive shadows, reflections, SSAO, and shader clouds removed from Potato.
+- 🪞 Skipped the full-screen reflection pass when advanced block and world-space reflections are inactive.
+- 🎬 Skipped the temporal antialiasing pass on minimum detail quality, where TAA is not compiled.
+- ✨ Reduced low-detail bloom filtering from 49 to 25 samples per active tile.
+- 🌊 Reduced low-detail procedural water normals from four texture reads to two.
+
+### ✅ Validation
+
+- 🧪 Added automatic checks for ordered performance profiles, Potato safeguards, and required Lite program fast paths.
+
+## 🧪 Lumina Shader Lite v1.2.7-rc.1 — 2026-08-27
+
+First release candidate for v1.2.7, focused on shader stability, cleaner Lite controls, stronger configuration validation, and a configurable procedural moon halo.
+
+### ✨ Added
+
+- 🌕 Added an optional procedural moon halo with a configurable intensity control and support in eligible sky reflections.
+
+### 🛠️ Fixed
+
+- 🎛️ Removed obsolete Advanced Color Tracing and World-Space Reflections controls from Lite profiles and the optimization menu.
+- 🧹 Removed the orphaned Advanced Color Tracing settings-screen definition.
+- 🧭 Protected custom labPBR normal-map reconstruction from negative square-root inputs caused by floating-point precision.
+- 🧱 Initialized POM depth before every parallax path to prevent undefined custom-PBR displacement and slope normals.
+- 🌈 Protected pixelated rainbows from horizon-aligned division by zero.
+- ✨ Stabilized GGX highlights at degenerate half vectors and extreme reflection angles.
+- ☁️ Clamped cloud-shadow angles before inverse trigonometric projection.
+- 🔎 Added safe fallbacks for degenerate UV derivatives and transparent samples in anisotropic filtering.
+
+### ✅ Validation
+
+- 🧪 Added automatic checks for obsolete profile controls, missing menu options, orphaned screens, and duplicate or invalid sliders.
+
 ## 🌌 Lumina Shader Lite v1.2.6 — 2026-08-01
 
 This maintenance update makes Lumina Shader Lite more stable in difficult rendering conditions while preserving its lightweight design and visual identity. ✨

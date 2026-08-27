@@ -18,7 +18,11 @@ noperspective in vec2 texCoord;
 const bool colortex0MipmapEnabled = true;
 
 //Common Variables//
-float weight[7] = float[7](1.0, 6.0, 15.0, 20.0, 15.0, 6.0, 1.0);
+#if DETAIL_QUALITY == 0
+    float weight[5] = float[5](1.0, 4.0, 6.0, 4.0, 1.0);
+#else
+    float weight[7] = float[7](1.0, 6.0, 15.0, 20.0, 15.0, 6.0, 1.0);
+#endif
 const float bloomInputLimit = 4.0;
 
 vec2 view = vec2(viewWidth, viewHeight);
@@ -36,15 +40,22 @@ vec3 BloomTile(float lod, vec2 offset, vec2 scaledCoord) {
     float padding = 0.5 + 0.005 * scale;
 
     if (abs(coord.x - 0.5) < padding && abs(coord.y - 0.5) < padding) {
-        for (int i = -3; i <= 3; i++) {
-            for (int j = -3; j <= 3; j++) {
-                float wg = weight[i + 3] * weight[j + 3];
+        #if DETAIL_QUALITY == 0
+            const int bloomRadius = 2;
+            const float bloomWeight = 256.0;
+        #else
+            const int bloomRadius = 3;
+            const float bloomWeight = 4096.0;
+        #endif
+        for (int i = -bloomRadius; i <= bloomRadius; i++) {
+            for (int j = -bloomRadius; j <= bloomRadius; j++) {
+                float wg = weight[i + bloomRadius] * weight[j + bloomRadius];
                 vec2 pixelOffset = vec2(i, j) / view;
                 vec2 bloomCoord = (scaledCoord - offset + pixelOffset) * scale;
                 bloom += texture2D(colortex0, bloomCoord).rgb * wg;
             }
         }
-        bloom /= 4096.0;
+        bloom /= bloomWeight;
     }
 
     bloom = min(bloom, vec3(bloomInputLimit)); // Prevent extreme emissives from saturating bloom/tonemapping

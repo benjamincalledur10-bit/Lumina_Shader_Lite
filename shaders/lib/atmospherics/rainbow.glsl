@@ -23,7 +23,7 @@ vec3 GetRainbow(vec3 translucentMult, vec3 nViewPos, float z0, float z1, float l
 
             shadowDir.z += 0.0065 * (dither - 0.5); // Blurs the pixelation
 
-            shadowDir /= abs(shadowDir.z); // Corrects distortion
+            shadowDir /= max(abs(shadowDir.z), 0.00001); // Corrects distortion without dividing by zero at the horizon
             shadowDir.xy = floor(shadowDir.xy * pixelScale) / pixelScale;
 
             VdotL = shadowDir.z * inversesqrt(dot(shadowDir, shadowDir));

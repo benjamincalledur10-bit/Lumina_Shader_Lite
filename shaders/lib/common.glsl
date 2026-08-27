@@ -19,13 +19,13 @@
     const float shadowDistance = 64.0; //[64.0 80.0 96.0 112.0 128.0 160.0 192.0 224.0 256.0 320.0 384.0 512.0 768.0 1024.0]
     #define SSAO_QUALI_DEFINE 0 //[0 2 3]
     #define FXAA_DEFINE 1 //[-1 1]
-    #define DETAIL_QUALITY 2 //[0 2 3]
+    #define DETAIL_QUALITY 0 //[0 2 3]
     #define CLOUD_QUALITY 1 //[0 1 2 3]
-    #define LIGHTSHAFT_QUALI_DEFINE 1 //[0 1 2 3 4]
+    #define LIGHTSHAFT_QUALI_DEFINE 0 //[0 1 2 3 4]
     #define WATER_REFLECT_QUALITY 0 //[-1 0 1 2]
-    #define BLOCK_REFLECT_QUALITY 3 //[0 1 3]
+    #define BLOCK_REFLECT_QUALITY 0 //[0 1 3]
     #define ANISOTROPIC_FILTER 0 //[0 4 8 16]
-    #define ENTITY_SHADOW 1 //[-1 1 2]
+    #define ENTITY_SHADOW -1 //[-1 1 2]
 
     #define COLORED_LIGHTING 0
     #define COLORED_LIGHTING_INTERNAL 0
@@ -69,6 +69,8 @@
     #define SUN_MOON_STYLE_DEFINE 2 //[-1 1 2 3]
     #define SUN_MOON_HORIZON
     #define SUN_MOON_DURING_RAIN
+    #define MOON_HALO
+    #define MOON_HALO_I 100 //[25 50 75 100 125 150 175 200]
     #define NIGHT_STAR_AMOUNT 2 //[0 1 2 3 4]
     #define MILKY_WAY_BRIGHTNESS 100 //[0 25 50 75 100 125 150]
     #define RAINBOWS 1 //[0 1 3]

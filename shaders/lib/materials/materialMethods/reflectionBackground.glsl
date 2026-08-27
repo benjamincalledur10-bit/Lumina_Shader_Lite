@@ -13,6 +13,9 @@ void AddBackgroundReflection(inout vec4 reflection, vec3 color, vec3 playerPos, 
         #ifdef MOON_PHASE_INF_ATMOSPHERE
             skyReflection *= moonPhaseInfluence;
         #endif
+        #ifdef MOON_HALO
+            skyReflection += GetMoonHalo(RVdotS);
+        #endif
 
         #ifdef COMPOSITE
             skyReflection *= skyLightFactor;

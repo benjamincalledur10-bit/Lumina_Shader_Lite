@@ -6,7 +6,7 @@ float GetNoHSquared(float radiusTan, float NoL, float NoV, float VoL) {
     if (RoL >= radiusCos)
         return 1.0;
 
-    float rOverLengthT = radiusCos * radiusTan / sqrt(1.0 - RoL * RoL);
+    float rOverLengthT = radiusCos * radiusTan / sqrt(max(1.0 - RoL * RoL, 0.000001));
     float NoTr = rOverLengthT * (NoV - RoL * NoL);
     float VoTr = rOverLengthT * (2.0 * NoV * NoV - 1.0 - RoL * VoL);
 
@@ -28,7 +28,7 @@ float GetNoHSquared(float radiusTan, float NoL, float NoV, float VoL) {
     float newVoL = VoL * radiusCos + VoTr;
     float NoH = NoV + newNoL;
     float HoH = 2.0 * newVoL + 2.0;
-    return clamp(NoH * NoH / HoH, 0.0, 1.0);
+    return clamp(NoH * NoH / max(HoH, 0.000001), 0.0, 1.0);
 }
 
 float GGX(vec3 normalM, vec3 viewPos, vec3 lightVec, float NdotLmax0, float smoothnessG) {
@@ -36,9 +36,12 @@ float GGX(vec3 normalM, vec3 viewPos, vec3 lightVec, float NdotLmax0, float smoo
     float roughnessP = (1.35 - smoothnessG);
     float roughness = pow2(pow2(roughnessP));
 
-    vec3 halfVec = normalize(lightVec - viewPos);
+    vec3 halfVecInput = lightVec - viewPos;
+    float halfVecLengthSquared = dot(halfVecInput, halfVecInput);
+    if (halfVecLengthSquared < 0.00000001) return 0.0;
+    vec3 halfVec = halfVecInput * inversesqrt(halfVecLengthSquared);
 
-    float dotLH = clamp(dot(halfVec, lightVec), 0.0, 1.0);
+    float dotLH = clamp(dot(halfVec, lightVec), 0.0001, 1.0);
     float dotNV = dot(normalM, -viewPos);
 
     #if WATER_REFLECT_QUALITY >= 2

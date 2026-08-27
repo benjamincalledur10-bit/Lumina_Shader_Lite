@@ -23,5 +23,8 @@ jobs:
         with:
           python-version: "3.13"
 
+      - name: Test shader validator
+        run: python -m unittest discover -s tests -v
+
       - name: Validate shader source and metadata
         run: python scripts/validate_shader.py

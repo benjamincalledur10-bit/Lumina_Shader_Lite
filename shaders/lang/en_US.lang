@@ -8,7 +8,6 @@ profile.MEDIUM=§aMedium
 profile.HIGH=§eHigh
 profile.VERYHIGH=§cVery High
 profile.ULTRA=§4§lUltra
-profile.COMPLEMENTARY=§6§l§n§oLumina Shader - Lite v1.2.6
 profile.comment=Shader profiles change performance settings with the most optimised visual fidelity to performance ratio. §e[*]§r It's recommended to use one of these profiles for your settings unless you know what you are doing. §e[*]§r All affected settings can all be found in the "Performance Settings" menu.
 
 #Information
@@ -17,7 +16,7 @@ screen.LUMINA_INFO.comment=This section contains buttons that only exist to prov
 
 option.info0=§bHover your mouse on a button
 value.info0.0=
-option.info0.comment=This section contains buttons that only exist to provide information.
+option.info0.comment=Lumina Shader Lite v1.2.7. This section contains buttons that only exist to provide information.
 
 option.info1=How to get more performance
 value.info1.0=
@@ -529,6 +528,12 @@ option.SUN_MOON_HORIZON.comment=Prevents the sun/moon from appearing below the h
 
 option.SUN_MOON_DURING_RAIN=Sun/Moon During Rain. §e[*]§r
 option.SUN_MOON_DURING_RAIN.comment=Determines if the sun and moon will be visible during rain or not. §e[*]§r This setting also changes the balance of lighting during rain.
+
+option.MOON_HALO=Moon Halo
+option.MOON_HALO.comment=Adds a lightweight procedural glow around the moon. Cloud cover, rain, and moon phases naturally reduce its visibility.
+
+option.MOON_HALO_I=Moon Halo Intensity
+option.MOON_HALO_I.comment=Adjusts the brightness of the procedural moon halo in the sky and reflections.
 
 option.NIGHT_STAR_AMOUNT=Night Star Amount
 option.NIGHT_STAR_AMOUNT.comment=Determines the amount of stars in the night sky.

@@ -90,11 +90,15 @@
                 #endif
 
                 vec2 normalMed = texture2D(gaux4, waterPosM + wind).rg - 0.5;
-                vec2 normalSmall = texture2D(gaux4, waterPosM * 4.0 - 2.0 * wind).rg - 0.5;
                 vec2 normalBig = texture2D(gaux4, waterPosM * 0.25 - 0.5 * wind).rg - 0.5;
-                     normalBig += texture2D(gaux4, waterPosM * 0.05 - 0.05 * wind).rg - 0.5;
-
-                normalMap.xy = normalMed * WATER_BUMP_MED + normalSmall * WATER_BUMP_SMALL + normalBig * WATER_BUMP_BIG;
+                vec2 normalSmall = vec2(0.0);
+                #if DETAIL_QUALITY == 0
+                    normalMap.xy = normalMed * WATER_BUMP_MED + normalBig * WATER_BUMP_BIG;
+                #else
+                    normalSmall = texture2D(gaux4, waterPosM * 4.0 - 2.0 * wind).rg - 0.5;
+                    normalBig += texture2D(gaux4, waterPosM * 0.05 - 0.05 * wind).rg - 0.5;
+                    normalMap.xy = normalMed * WATER_BUMP_MED + normalSmall * WATER_BUMP_SMALL + normalBig * WATER_BUMP_BIG;
+                #endif
                 normalMap.xy *= 6.0 * (1.0 - 0.7 * fresnel) * WATER_BUMPINESS_M;
             #endif
 
