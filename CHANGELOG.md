@@ -1,5 +1,19 @@
 # Changelog
 
+## 🧪 Unreleased
+
+### ⚡ Optimized
+
+- 🎚️ Rebalanced every performance profile into a consistent quality ladder, with expensive shadows, reflections, SSAO, and shader clouds removed from Potato.
+- 🪞 Skipped the full-screen reflection pass when advanced block and world-space reflections are inactive.
+- 🎬 Skipped the temporal antialiasing pass on minimum detail quality, where TAA is not compiled.
+- ✨ Reduced low-detail bloom filtering from 49 to 25 samples per active tile.
+- 🌊 Reduced low-detail procedural water normals from four texture reads to two.
+
+### ✅ Validation
+
+- 🧪 Added automatic checks for ordered performance profiles, Potato safeguards, and required Lite program fast paths.
+
 ## 🧪 Lumina Shader Lite v1.2.7-rc.1 — 2026-08-27
 
 First release candidate for v1.2.7, focused on shader stability, cleaner Lite controls, stronger configuration validation, and a configurable procedural moon halo.

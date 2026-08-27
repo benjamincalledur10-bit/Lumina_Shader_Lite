@@ -191,6 +191,63 @@ def validate_shader_properties() -> tuple[int, int, int]:
     return validate_menu_configuration(properties, common)
 
 
+def validate_performance_profiles(properties: str) -> int:
+    profile_order = ("POTATO", "VERYLOW", "LOW", "MEDIUM", "HIGH", "VERYHIGH", "ULTRA")
+    quality_options = (
+        "SHADOW_QUALITY",
+        "shadowDistance",
+        "WATER_REFLECT_QUALITY",
+        "BLOCK_REFLECT_QUALITY",
+        "LIGHTSHAFT_QUALI_DEFINE",
+        "SSAO_QUALI_DEFINE",
+        "FXAA_DEFINE",
+        "DETAIL_QUALITY",
+        "CLOUD_QUALITY",
+        "ANISOTROPIC_FILTER",
+        "ENTITY_SHADOW",
+    )
+    profiles = {
+        match.group(1): parse_assignments(match.group(2))
+        for match in PROFILE_PATTERN.finditer(properties)
+    }
+    missing_profiles = [name for name in profile_order if name not in profiles]
+    if missing_profiles:
+        fail(f"Missing performance profiles: {missing_profiles}")
+
+    for option in quality_options:
+        try:
+            values = [float(profiles[name][option]) for name in profile_order]
+        except KeyError as error:
+            fail(f"Performance profile is missing option {error.args[0]}")
+        if values != sorted(values):
+            fail(f"Performance profile option is not monotonic: {option}={values}")
+
+    potato = profiles["POTATO"]
+    required_potato = {
+        "SHADOW_QUALITY": "-1",
+        "WATER_REFLECT_QUALITY": "-1",
+        "SSAO_QUALI_DEFINE": "0",
+        "CLOUD_QUALITY": "0",
+    }
+    mismatches = {
+        option: (potato.get(option), expected)
+        for option, expected in required_potato.items()
+        if potato.get(option) != expected
+    }
+    if mismatches:
+        fail(f"Potato profile enables expensive effects: {mismatches}")
+
+    required_fast_paths = (
+        "program.world0/composite.enabled=false",
+        "program.world0/composite6.enabled=false",
+    )
+    missing_fast_paths = [rule for rule in required_fast_paths if rule not in properties]
+    if missing_fast_paths:
+        fail(f"Missing Lite program fast paths: {missing_fast_paths}")
+
+    return len(profile_order)
+
+
 def validate_default_profile() -> int:
     properties = (SHADERS / "shaders.properties").read_text(encoding="utf-8-sig")
     match = re.search(r"^\s*profile\.COMPLEMENTARY\s*=\s*(.+)$", properties, re.MULTILINE)
@@ -299,6 +356,9 @@ def main() -> int:
     preprocessor_count = validate_preprocessors()
     profile_count = validate_default_profile()
     menu_option_count, screen_count, slider_count = validate_shader_properties()
+    performance_profile_count = validate_performance_profiles(
+        (SHADERS / "shaders.properties").read_text(encoding="utf-8-sig")
+    )
     metadata_version = validate_version(args.version)
     zip_count = validate_zip(args.zip) if args.zip else 0
 
@@ -307,7 +367,8 @@ def main() -> int:
         f"version {metadata_version}, "
         f"{json_count} JSON files, {include_count} includes, "
         f"{preprocessor_count} preprocessor files, {profile_count} profile values, "
-        f"{menu_option_count} menu options, {screen_count} screens, {slider_count} sliders"
+        f"{menu_option_count} menu options, {screen_count} screens, {slider_count} sliders, "
+        f"{performance_profile_count} ordered performance profiles"
         + (f", {zip_count} ZIP members" if args.zip else "")
     )
     return 0

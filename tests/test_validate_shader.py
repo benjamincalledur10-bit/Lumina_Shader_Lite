@@ -67,5 +67,20 @@ class MenuConfigurationTests(unittest.TestCase):
         )
 
 
+class PerformanceProfileTests(unittest.TestCase):
+    def test_repository_profiles_are_ordered(self) -> None:
+        properties = (ROOT / "shaders/shaders.properties").read_text(encoding="utf-8-sig")
+        self.assertEqual(VALIDATOR.validate_performance_profiles(properties), 7)
+
+    def test_rejects_profile_quality_regression(self) -> None:
+        properties = (ROOT / "shaders/shaders.properties").read_text(encoding="utf-8-sig")
+        properties = properties.replace(
+            "profile.HIGH     = SHADOW_QUALITY=1",
+            "profile.HIGH     = SHADOW_QUALITY=-1",
+        )
+        with self.assertRaisesRegex(RuntimeError, "not monotonic"):
+            VALIDATOR.validate_performance_profiles(properties)
+
+
 if __name__ == "__main__":
     unittest.main()
