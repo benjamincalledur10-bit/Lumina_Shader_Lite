@@ -1,6 +1,8 @@
 # Changelog
 
-## 🧪 Unreleased
+## 🧪 Lumina Shader Lite v1.2.7-rc.3 — 2026-08-27
+
+Hotfix release candidate restoring Potato, Very Low, and Low profile compatibility after the RC2 water optimization.
 
 ### 🛠️ Fixed
 
