@@ -1,6 +1,12 @@
 # Changelog
 
-## 🧪 Unreleased
+## 🧪 Lumina Shader Lite v1.2.7-rc.1 — 2026-08-27
+
+First release candidate for v1.2.7, focused on shader stability, cleaner Lite controls, stronger configuration validation, and a configurable procedural moon halo.
+
+### ✨ Added
+
+- 🌕 Added an optional procedural moon halo with a configurable intensity control and support in eligible sky reflections.
 
 ### 🛠️ Fixed
 
