@@ -250,9 +250,9 @@ def validate_performance_profiles(properties: str) -> int:
 
 def validate_default_profile() -> int:
     properties = (SHADERS / "shaders.properties").read_text(encoding="utf-8-sig")
-    match = re.search(r"^\s*profile\.COMPLEMENTARY\s*=\s*(.+)$", properties, re.MULTILINE)
+    match = re.search(r"^\s*profile\.LOW\s*=\s*(.+)$", properties, re.MULTILINE)
     if not match:
-        fail("Missing profile.COMPLEMENTARY")
+        fail("Missing profile.LOW")
     profile = parse_assignments(match.group(1))
 
     common = (SHADERS / "lib/common.glsl").read_text(encoding="utf-8-sig")
@@ -287,11 +287,7 @@ def metadata_versions() -> dict[Path, str]:
         fail(f"Could not extract an exact version from {pack_path.relative_to(ROOT)}")
 
     lang_text = lang_path.read_text(encoding="utf-8-sig")
-    lang_match = re.search(
-        rf"^profile\.COMPLEMENTARY=.*Lite v({VERSION_PATTERN})\s*$",
-        lang_text,
-        re.MULTILINE,
-    )
+    lang_match = re.search(rf"^option\.info0\.comment=Lumina Shader Lite v({VERSION_PATTERN})\.", lang_text, re.MULTILINE)
     if not lang_match:
         fail(f"Could not extract an exact version from {lang_path.relative_to(ROOT)}")
 

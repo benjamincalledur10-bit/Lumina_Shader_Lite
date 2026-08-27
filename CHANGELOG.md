@@ -1,5 +1,21 @@
 # Changelog
 
+## 🧪 Lumina Shader Lite v1.2.7-rc.4 — 2026-08-27
+
+Final optimization release candidate, making Low the factory-default profile and removing the inherited Complementary profile entry.
+
+### ⚡ Optimized
+
+- 🚀 Changed the shader's factory defaults to match the Low profile, including its lightweight material, shadow, antialiasing, and post-processing paths.
+
+### 🎨 Interface
+
+- 🧹 Removed the inherited Complementary profile from the profile selector so new installations identify Low as the active default.
+
+### ✅ Validation
+
+- 🧪 Updated release metadata and default-profile validation to use the new Low baseline.
+
 ## 🧪 Lumina Shader Lite v1.2.7-rc.3 — 2026-08-27
 
 Hotfix release candidate restoring Potato, Very Low, and Low profile compatibility after the RC2 water optimization.
