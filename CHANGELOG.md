@@ -1,5 +1,11 @@
 # Changelog
 
+## 🧪 Unreleased
+
+### 🛠️ Fixed
+
+- 🌊 Restored low-detail water shader compilation by keeping the optional small-wave normal available to later lighting calculations without restoring its texture lookup.
+
 ## 🧪 Lumina Shader Lite v1.2.7-rc.2 — 2026-08-27
 
 Second release candidate for v1.2.7, introducing the first real-optimization pass for low-end hardware and integrated graphics.
