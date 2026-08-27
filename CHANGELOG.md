@@ -1,6 +1,8 @@
 # Changelog
 
-## 🧪 Unreleased
+## 🧪 Lumina Shader Lite v1.2.7-rc.2 — 2026-08-27
+
+Second release candidate for v1.2.7, introducing the first real-optimization pass for low-end hardware and integrated graphics.
 
 ### ⚡ Optimized
 
