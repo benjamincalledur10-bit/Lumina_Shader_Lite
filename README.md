@@ -20,8 +20,9 @@ Use one of the official distribution pages:
 - [Modrinth](https://modrinth.com/shader/lumina-shader-lite)
 - [CurseForge](https://www.curseforge.com/minecraft/shaders/lumina-shader-lite)
 
-The current stable release is **v1.2.7**. Download
-`Lumina_Shader_Lite_v1.2.7.zip` and keep it compressed when installing it.
+The current stable release is **v1.2.8**. Download
+`Lumina_Shader_Lite_v1.2.8.zip` from GitHub Releases and keep it compressed when
+installing it. Availability on Modrinth and CurseForge may differ.
 
 ## Highlights
 
@@ -44,7 +45,7 @@ The current stable release is **v1.2.7**. Download
 
 | Component | Support |
 | --- | --- |
-| Game | Minecraft: Java Edition 1.16.5 through 1.21.11 and 26.1 through 26.2 |
+| Game | Minecraft: Java Edition 1.16.5 through 1.21.11 and 26.1 through 26.3 (target range; in-game validation pending) |
 | Shader loaders | Iris and OptiFine |
 | Rendering profiles | Potato, Very Low, Low, Medium, High, Very High, Ultra |
 | Edition | Java Edition only; Bedrock Edition is not supported |
@@ -58,7 +59,7 @@ graphics driver, and GPU.
 
 1. Install [Iris](https://www.irisshaders.dev/) or a compatible OptiFine
    version.
-2. Download `Lumina_Shader_Lite_v1.2.7.zip` from an official source above.
+2. Download `Lumina_Shader_Lite_v1.2.8.zip` from an official source above.
 3. Open Minecraft and go to **Options > Video Settings > Shader Packs**.
 4. Open the shader-pack folder and place the downloaded ZIP inside it. Do not
    extract the archive.
@@ -84,12 +85,9 @@ The default shader-pack directory is usually:
 
 ## Development
 
-The development branch currently contains **v1.2.8-rc.2**, targeting compatibility
-and stability from Minecraft 1.16.5 through 26.3. The candidate is available as
-[`Lumina_Shader_Lite_v1.2.8-rc.2.zip`](releases/Lumina_Shader_Lite_v1.2.8-rc.2.zip).
-See [compatibility coverage and pending in-game tests](docs/COMPATIBILITY.md)
-before treating the candidate as a stable release. Offline compilation does not
-certify every game, loader, GPU or mod combination.
+**v1.2.8** includes the compatibility and shadow fixes developed in rc.1 and
+rc.2. See [compatibility coverage and pending in-game tests](docs/COMPATIBILITY.md).
+Offline compilation does not certify every game, loader, GPU or mod combination.
 
 
 - `main` contains the current stable, published state.

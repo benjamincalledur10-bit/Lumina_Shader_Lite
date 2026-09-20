@@ -1,8 +1,9 @@
 # Lumina Lite v1.2.8 compatibility work
 
-The development build is **v1.2.8-rc.2**. Its target is every stable Minecraft
-Java release from **1.16.5 through 26.3**. The published stable pack remains
-v1.2.7. This candidate adds compatibility fixes, not new visual effects.
+The stable release is **v1.2.8**, targeting every stable Minecraft Java release
+from **1.16.5 through 26.3**. It promotes rc.2 with only release metadata and
+documentation changes; shader behavior is unchanged. Runtime validation remains
+pending. This release adds compatibility fixes, not new visual effects.
 
 ## What has been verified
 
@@ -41,9 +42,9 @@ Machine-readable offline results are in
 
 ## Runtime validation status
 
-**No Minecraft runtime test has been performed for this candidate.** No version
-is certified as fully stable by the offline checks. Before promoting this build
-to v1.2.8 stable, record the following checks for **each of the 35 releases** with
+**No Minecraft runtime test has been performed for v1.2.8 or its candidates.**
+The stable release designation does not certify full stability through offline
+checks. The following checks remain pending for **each of the 35 releases** with
 an actually available, compatible loader. Do not mark unavailable loader/game
 combinations as supported.
 
@@ -87,7 +88,7 @@ on Homebrew). The runner also accepts `--compiler /path/to/glslang`.
 
 ```sh
 python3 -m unittest discover -s tests -v
-python3 scripts/validate_shader.py --version 1.2.8-rc.2 --zip releases/Lumina_Shader_Lite_v1.2.8-rc.2.zip
+python3 scripts/validate_shader.py --version 1.2.8 --zip releases/Lumina_Shader_Lite_v1.2.8.zip
 python3 scripts/compile_shader.py --report /tmp/lumina-matrix.json
 python3 scripts/compile_shader.py --versions 1.16.5 1.20.1 --loaders iris-legacy
 python3 scripts/compile_shader.py --versions 1.21.11 26.3 --loaders iris-modern --dh

@@ -1,5 +1,46 @@
 # Changelog
 
+## Lumina Shader Lite v1.2.8 — 2026-09-19
+
+Compatibility and stability update targeting Minecraft Java 1.16.5–26.3.
+Includes the fixes from rc.1 and rc.2, with no new visual effects or changes to
+quality-profile defaults.
+
+### Compatibility fixes
+
+- Corrected version-specific cauldron mappings, Pale Garden and darkness checks.
+- Separated biome and eye-brightness smoothing state to prevent interference.
+- Fixed line rendering inputs and the GLSL fallback for anisotropic filtering.
+- Protected End effects against invalid direction and square-root calculations.
+- Completed material mappings for Pale Oak signs, bamboo rafts and 26.3 content.
+
+### Shadow fixes
+
+- Unified shadow depth projection across surfaces, clouds and volumetric light.
+- Corrected foliage shadow offsets with perpendicular lighting.
+- Corrected cloud-shadow projection for inclined sunlight and both cloud layers.
+- Prevented invalid light-shaft update intervals at very low FPS or startup.
+- Prevented division by zero when no shadow-height samples are available.
+
+### Validation
+
+- 20 automated regression tests pass; offline compilation covers version
+  boundaries, seven profiles, three dimensions and additional rendering paths.
+- Shader code is unchanged from rc.2; only release metadata and documentation
+  change in this stable promotion.
+- In-game and visual testing remain pending. Offline checks do not certify
+  universal stability across game versions, loaders, GPUs or mod combinations.
+- See [compatibility coverage](https://github.com/benjamincalledur10-bit/Lumina_Shader_Lite/blob/v1.2.8/docs/COMPATIBILITY.md)
+  and the [shadow audit](https://github.com/benjamincalledur10-bit/Lumina_Shader_Lite/blob/v1.2.8/docs/SHADOW_AUDIT.md).
+
+### Installation
+
+Download `Lumina_Shader_Lite_v1.2.8.zip`, keep it compressed and place it in your
+Minecraft `shaderpacks` folder. Use an Iris or OptiFine version compatible with
+your Minecraft installation.
+
+---
+
 ## Lumina Shader Lite v1.2.8-rc.2 — 2026-09-19
 
 Shadow-focused bug fixes following the compatibility candidate. This remains a
