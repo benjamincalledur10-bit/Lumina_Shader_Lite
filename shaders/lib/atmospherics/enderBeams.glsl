@@ -19,14 +19,16 @@
         float beamPurpleReducer = vlFactor;
         float beamOrangeIncreaser = vlFactor;
 
-        float VdotUM = 1.0 - pow2(VdotU);
+        float VdotUM = max0(1.0 - pow2(VdotU));
         float VdotUM2 = sqrt(VdotUM) + 0.15 * smoothstep1(pow2(pow2(1.0 - abs(VdotU))));
 
         #if defined IS_IRIS && MC_VERSION >= 12109
             vec3 worldEndFlashPosition = mat3(gbufferModelViewInverse) * endFlashPosition;
-            worldEndFlashPosition = normalize(vec3(worldEndFlashPosition.x, 0.0, worldEndFlashPosition.z));
+            worldEndFlashPosition = vec3(worldEndFlashPosition.x, 0.0, worldEndFlashPosition.z);
+            worldEndFlashPosition /= max(length(worldEndFlashPosition), 0.0001);
             vec3 nViewPosWorld = mat3(gbufferModelViewInverse) * nViewPos;
-            vec3 nViewPosWorldM = normalize(vec3(nViewPosWorld.x, 0.0, nViewPosWorld.z));
+            vec3 nViewPosWorldM = vec3(nViewPosWorld.x, 0.0, nViewPosWorld.z);
+            nViewPosWorldM /= max(length(nViewPosWorldM), 0.0001);
 
             float endFlashDirectionFactor = pow(max0(dot(worldEndFlashPosition, nViewPosWorldM)), 12.0);
             float endFlashFactor = endFlashIntensity * endFlashDirectionFactor;

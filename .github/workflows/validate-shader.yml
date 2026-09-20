@@ -28,3 +28,39 @@ jobs:
 
       - name: Validate shader source and metadata
         run: python scripts/validate_shader.py
+
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install offline GLSL compiler
+        run: sudo apt-get update && sudo apt-get install -y glslang-tools
+
+      - name: Compile version boundaries and all seven profiles
+        run: python scripts/compile_shader.py --report reports/matrix.json
+
+      - name: Compile older Iris capability paths
+        run: python scripts/compile_shader.py --versions 1.16.5 1.20.1 --loaders iris-legacy --report reports/legacy.json
+
+      - name: Compile Distant Horizons paths
+        run: python scripts/compile_shader.py --versions 1.21.11 26.3 --loaders iris-modern --dh --report reports/dh.json
+
+      - name: Compile PBR and AMD workaround paths
+        run: python scripts/compile_shader.py --versions 1.16.5 26.3 --option RP_MODE=2 --vendor AMD --report reports/pbr.json
+
+      - name: Compile vanilla clouds and macOS paths
+        run: python scripts/compile_shader.py --versions 1.16.5 1.21.5 1.21.6 26.3 --profiles LOW ULTRA --option CLOUD_STYLE_DEFINE=50 --os MAC --vendor OTHER --report reports/clouds.json
+
+      - name: Save offline compilation reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shader-compilation-reports
+          path: reports/*.json

@@ -1,0 +1,194 @@
+{
+  "candidate": "1.2.8-rc.1",
+  "date": "2026-09-19",
+  "shader_tree_sha256": "2e23a0db66a83b2fca2d33a9b525f56bf53ab9ef6c9d654a23faa96ba7220771",
+  "runtime_validation": "Not performed; all 35 game releases require in-game testing.",
+  "unit_tests_passed": 14,
+  "property_versions": [
+    "1.16.5",
+    "1.17",
+    "1.17.1",
+    "1.18",
+    "1.18.1",
+    "1.18.2",
+    "1.19",
+    "1.19.1",
+    "1.19.2",
+    "1.19.3",
+    "1.19.4",
+    "1.20",
+    "1.20.1",
+    "1.20.2",
+    "1.20.3",
+    "1.20.4",
+    "1.20.5",
+    "1.20.6",
+    "1.21",
+    "1.21.1",
+    "1.21.2",
+    "1.21.3",
+    "1.21.4",
+    "1.21.5",
+    "1.21.6",
+    "1.21.7",
+    "1.21.8",
+    "1.21.9",
+    "1.21.10",
+    "1.21.11",
+    "26.1",
+    "26.1.1",
+    "26.1.2",
+    "26.2",
+    "26.3"
+  ],
+  "total_program_pairs": 23772,
+  "runs": [
+    {
+      "kind": "offline GLSL compilation and linking; no runtime/GPU certification",
+      "compiler": "Glslang Version: 11:16.6.0",
+      "versions": [
+        "1.16.5",
+        "1.17",
+        "1.18",
+        "1.19",
+        "1.20",
+        "1.21",
+        "1.21.2",
+        "1.21.4",
+        "1.21.5",
+        "1.21.6",
+        "1.21.9",
+        "1.21.11",
+        "26.1",
+        "26.2",
+        "26.3"
+      ],
+      "loaders": [
+        "optifine",
+        "iris-modern"
+      ],
+      "profiles": [
+        "POTATO",
+        "VERYLOW",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "VERYHIGH",
+        "ULTRA"
+      ],
+      "distant_horizons": false,
+      "options": {},
+      "program_pairs": 17640,
+      "failures": [],
+      "vendor_macro": "NVIDIA",
+      "os_macro": "WINDOWS"
+    },
+    {
+      "kind": "offline GLSL compilation and linking; no runtime/GPU certification",
+      "compiler": "Glslang Version: 11:16.6.0",
+      "versions": [
+        "1.16.5",
+        "1.20.1"
+      ],
+      "loaders": [
+        "iris-legacy"
+      ],
+      "profiles": [
+        "POTATO",
+        "VERYLOW",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "VERYHIGH",
+        "ULTRA"
+      ],
+      "distant_horizons": false,
+      "options": {},
+      "vendor_macro": "NVIDIA",
+      "os_macro": "WINDOWS",
+      "program_pairs": 1176,
+      "failures": []
+    },
+    {
+      "kind": "offline GLSL compilation and linking; no runtime/GPU certification",
+      "compiler": "Glslang Version: 11:16.6.0",
+      "versions": [
+        "1.21.11",
+        "26.3"
+      ],
+      "loaders": [
+        "iris-modern"
+      ],
+      "profiles": [
+        "POTATO",
+        "VERYLOW",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "VERYHIGH",
+        "ULTRA"
+      ],
+      "distant_horizons": true,
+      "options": {},
+      "vendor_macro": "NVIDIA",
+      "os_macro": "WINDOWS",
+      "program_pairs": 1260,
+      "failures": []
+    },
+    {
+      "kind": "offline GLSL compilation and linking; no runtime/GPU certification",
+      "compiler": "Glslang Version: 11:16.6.0",
+      "versions": [
+        "1.16.5",
+        "26.3"
+      ],
+      "loaders": [
+        "optifine",
+        "iris-modern"
+      ],
+      "profiles": [
+        "POTATO",
+        "VERYLOW",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "VERYHIGH",
+        "ULTRA"
+      ],
+      "distant_horizons": false,
+      "options": {
+        "RP_MODE": "2"
+      },
+      "vendor_macro": "AMD",
+      "os_macro": "WINDOWS",
+      "program_pairs": 2352,
+      "failures": []
+    },
+    {
+      "kind": "offline GLSL compilation and linking; no runtime/GPU certification",
+      "compiler": "Glslang Version: 11:16.6.0",
+      "versions": [
+        "1.16.5",
+        "1.21.5",
+        "1.21.6",
+        "26.3"
+      ],
+      "loaders": [
+        "optifine",
+        "iris-modern"
+      ],
+      "profiles": [
+        "LOW",
+        "ULTRA"
+      ],
+      "distant_horizons": false,
+      "options": {
+        "CLOUD_STYLE_DEFINE": "50"
+      },
+      "vendor_macro": "OTHER",
+      "os_macro": "MAC",
+      "program_pairs": 1344,
+      "failures": []
+    }
+  ]
+}

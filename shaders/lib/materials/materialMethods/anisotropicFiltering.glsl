@@ -8,7 +8,7 @@ float manualDeterminant(mat2 matrix) {
 }
 
 mat2 inverseM(mat2 m) {
-    #if MC_VERSION >= 11700
+    #if __VERSION__ >= 140
         return inverse(m);
     #else
         mat2 adj;

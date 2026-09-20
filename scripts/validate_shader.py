@@ -191,6 +191,15 @@ def validate_shader_properties() -> tuple[int, int, int]:
     return validate_menu_configuration(properties, common)
 
 
+def validate_smoothing_ids(properties: str) -> int:
+    """Explicit smooth() IDs share state, so independent expressions need unique IDs."""
+    ids = re.findall(r"\bsmooth\(\s*(\d+)\s*,", properties)
+    duplicates = sorted({value for value in ids if ids.count(value) > 1})
+    if duplicates:
+        fail(f"Shared smoothing IDs between expressions: {duplicates}")
+    return len(ids)
+
+
 def validate_performance_profiles(properties: str) -> int:
     profile_order = ("POTATO", "VERYLOW", "LOW", "MEDIUM", "HIGH", "VERYHIGH", "ULTRA")
     quality_options = (
@@ -352,6 +361,9 @@ def main() -> int:
     preprocessor_count = validate_preprocessors()
     profile_count = validate_default_profile()
     menu_option_count, screen_count, slider_count = validate_shader_properties()
+    smoothing_count = validate_smoothing_ids(
+        (SHADERS / "shaders.properties").read_text(encoding="utf-8-sig")
+    )
     performance_profile_count = validate_performance_profiles(
         (SHADERS / "shaders.properties").read_text(encoding="utf-8-sig")
     )
@@ -365,6 +377,7 @@ def main() -> int:
         f"{preprocessor_count} preprocessor files, {profile_count} profile values, "
         f"{menu_option_count} menu options, {screen_count} screens, {slider_count} sliders, "
         f"{performance_profile_count} ordered performance profiles"
+        f", {smoothing_count} independent smoothing IDs"
         + (f", {zip_count} ZIP members" if args.zip else "")
     )
     return 0

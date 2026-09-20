@@ -448,8 +448,9 @@ void DoLighting(inout vec4 color, inout vec3 shadowMult, vec3 playerPos, vec3 vi
     #ifdef END
         #if defined IS_IRIS && MC_VERSION >= 12109
             vec3 worldEndFlashPosition = mat3(gbufferModelViewInverse) * endFlashPosition;
-            worldEndFlashPosition = normalize(vec3(worldEndFlashPosition.x, 0.0, worldEndFlashPosition.z));
-            float endFlashDirectionFactor = max0(1.0 + dot(worldGeoNormal, normalize(worldEndFlashPosition))) * 0.5;
+            worldEndFlashPosition = vec3(worldEndFlashPosition.x, 0.0, worldEndFlashPosition.z);
+            worldEndFlashPosition /= max(length(worldEndFlashPosition), 0.0001);
+            float endFlashDirectionFactor = max0(1.0 + dot(worldGeoNormal, worldEndFlashPosition)) * 0.5;
                   endFlashDirectionFactor = pow2(pow2(endFlashDirectionFactor));
 
             vec3 endFlashColor = (endOrangeCol + 0.5 * endLightColor) * endFlashIntensity * pow2(lightmapYM);

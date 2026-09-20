@@ -1,5 +1,47 @@
 # Changelog
 
+## Lumina Shader Lite v1.2.8-rc.1 — 2026-09-19
+
+Compatibility and stability candidate targeting Minecraft Java 1.16.5 through
+26.3. No new visual effects. In-game validation is still required before a stable
+v1.2.8 release; this candidate does not claim universal hardware/mod compatibility.
+
+### Fixed
+
+- Restored version-correct mapping of empty and water-filled cauldrons on 1.16.5.
+- Avoided referencing Pale Garden and the darkness effect in custom uniform
+  expressions on game versions where those features do not exist.
+- Gave Pale Garden, Soul Sand Valley and the two eye-brightness expressions
+  independent smoothing state to prevent interference between them.
+- Replaced undeclared core-profile inputs in the line vertex shader with the
+  compatibility transform handled by shader loaders.
+- Selected the anisotropic-filter matrix inverse by GLSL capability instead of
+  Minecraft version, retaining a GLSL 1.30-compatible fallback.
+- Protected End-flash direction calculations and vertical End views from
+  zero-length normalization and negative square-root inputs.
+- Completed Pale Oak wall-sign and bamboo raft material mappings and removed
+  an invalid stained-glass mapping token.
+
+### Compatibility
+
+- Mapped 26.3 Poplar leaves, saplings, signs and boats, Red Shrubs and Shelf
+  Mushrooms to the existing appropriate material families.
+- Mapped wool/concrete stairs and slabs to existing materials while preserving
+  partial-block classification and the special lime material handling.
+
+### Validation
+
+- Added property regressions across all 35 stable releases in the target range.
+- Added offline GLSL compilation and linking across game-version boundaries,
+  all seven profiles and all three dimensions, plus legacy Iris, Distant Horizons,
+  custom PBR/POM, AMD workaround and macOS/vanilla-cloud paths.
+- Added CI compilation reports and duplicate smoothing-ID validation.
+- Runtime testing status and reproduction steps are documented in
+  `docs/COMPATIBILITY.md` in the repository.
+
+---
+
+
 # 🚀 Lumina Shader Lite v1.2.7 — Performance Unleashed
 
 **Lumina Shader Lite is now faster, cleaner, and more efficient than ever.** ⚡

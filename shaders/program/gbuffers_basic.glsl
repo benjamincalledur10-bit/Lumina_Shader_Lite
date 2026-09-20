@@ -139,25 +139,9 @@ flat out vec4 glColor;
 
 //Program//
 void main() {
-    #ifndef GBUFFERS_LINE
-        gl_Position = ftransform();
-    #else
-        float lineWidth = 2.0;
-        vec2 screenSize = vec2(viewWidth, viewHeight);
-        const mat4 VIEW_SCALE = mat4(mat3(1.0 - (1.0 / 256.0)));
-        vec4 linePosStart = projectionMatrix * VIEW_SCALE * modelViewMatrix * vec4(vaPosition, 1.0);
-        vec4 linePosEnd = projectionMatrix * VIEW_SCALE * modelViewMatrix * (vec4(vaPosition + vaNormal, 1.0));
-        vec3 ndc1 = linePosStart.xyz / linePosStart.w;
-        vec3 ndc2 = linePosEnd.xyz / linePosEnd.w;
-        vec2 lineScreenDirection = normalize((ndc2.xy - ndc1.xy) * screenSize);
-        vec2 lineOffset = vec2(-lineScreenDirection.y, lineScreenDirection.x) * lineWidth / screenSize;
-        if (lineOffset.x < 0.0)
-            lineOffset *= -1.0;
-        if (gl_VertexID % 2 == 0)
-            gl_Position = vec4((ndc1 + vec3(lineOffset, 0.0)) * linePosStart.w, linePosStart.w);
-        else
-            gl_Position = vec4((ndc1 - vec3(lineOffset, 0.0)) * linePosStart.w, linePosStart.w);
-    #endif
+    // Compatibility-profile geometry, including lines, is transformed by the loader.
+    // Iris/OptiFine handle modern line widening when patching the built-in inputs.
+    gl_Position = ftransform();
 
     #ifdef TAA
         gl_Position.xy = TAAJitter(gl_Position.xy, gl_Position.w);
