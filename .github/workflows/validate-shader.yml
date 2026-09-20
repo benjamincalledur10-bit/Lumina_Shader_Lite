@@ -58,6 +58,15 @@ jobs:
       - name: Compile vanilla clouds and macOS paths
         run: python scripts/compile_shader.py --versions 1.16.5 1.21.5 1.21.6 26.3 --profiles LOW ULTRA --option CLOUD_STYLE_DEFINE=50 --os MAC --vendor OTHER --report reports/clouds.json
 
+      - name: Compile vertical sun and two cloud-shadow layers
+        run: python scripts/compile_shader.py --versions 1.16.5 26.3 --profiles MEDIUM ULTRA --option CLOUD_SHADOWS=true --option DOUBLE_REIM_CLOUDS=true --option SUN_ANGLE=0 --option LIGHTSHAFT_BEHAVIOUR=1 --report reports/shadow-vertical.json
+
+      - name: Compile tilted sun and maximum shadow settings without TAA
+        run: python scripts/compile_shader.py --versions 1.16.5 26.3 --profiles HIGH ULTRA --option CLOUD_SHADOWS=true --option DOUBLE_REIM_CLOUDS=true --option SUN_ANGLE=-40 --option SHADOW_QUALITY=5 --option SHADOW_SMOOTHING=1 --option shadowDistance=1024.0 --option RP_MODE=2 --option TAA_MODE=0 --option ENTITY_SHADOW=2 --report reports/shadow-tilted.json
+
+      - name: Compile Unbound cloud shadows and labPBR
+        run: python scripts/compile_shader.py --versions 1.16.5 26.3 --profiles LOW HIGH --option LIGHTSHAFT_QUALI_DEFINE=4 --option CLOUD_SHADOWS=true --option CLOUD_STYLE_DEFINE=3 --option RP_MODE=3 --os MAC --vendor OTHER --report reports/shadow-unbound.json
+
       - name: Save offline compilation reports
         if: always()
         uses: actions/upload-artifact@v4

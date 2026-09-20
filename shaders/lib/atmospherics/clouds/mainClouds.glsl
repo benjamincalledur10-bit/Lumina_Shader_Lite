@@ -4,6 +4,7 @@
 
 #include "/lib/colors/lightAndAmbientColors.glsl"
 #include "/lib/colors/cloudColors.glsl"
+#include "/lib/util/shadowProjection.glsl"
 #include "/lib/atmospherics/sky.glsl"
 
 float InterleavedGradientNoiseForClouds() {
@@ -17,11 +18,7 @@ float InterleavedGradientNoiseForClouds() {
 
 #if SHADOW_QUALITY > -1
     vec3 GetShadowOnCloudPosition(vec3 tracePos, vec3 cameraPos) {
-        vec3 wpos = PlayerToShadow(tracePos - cameraPos);
-        float distb = sqrt(wpos.x * wpos.x + wpos.y * wpos.y);
-        float distortFactor = 1.0 - shadowMapBias + distb * shadowMapBias;
-        vec3 shadowPosition = vec3(vec2(wpos.xy / distortFactor), wpos.z * 0.2);
-        return shadowPosition * 0.5 + 0.5;
+        return DistortShadowClip(PlayerToShadow(tracePos - cameraPos)) * 0.5 + 0.5;
     }
 
     bool GetShadowOnCloud(vec3 tracePos, vec3 cameraPos, int cloudAltitude, float lowerPlaneAltitude, float higherPlaneAltitude) {

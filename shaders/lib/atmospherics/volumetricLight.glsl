@@ -1,6 +1,7 @@
 // Volumetric tracing from Robobo1221, highly modified
 
 #include "/lib/colors/lightAndAmbientColors.glsl"
+#include "/lib/util/shadowProjection.glsl"
 
 float GetDepth(float depth) {
     return 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
@@ -8,14 +9,6 @@ float GetDepth(float depth) {
 
 float GetDistX(float dist) {
     return (far * (dist - near)) / (dist * (far - near));
-}
-
-vec4 DistortShadow(vec4 shadowpos, float distortFactor) {
-    shadowpos.xy *= 1.0 / distortFactor;
-    shadowpos.z = shadowpos.z * 0.2;
-    shadowpos = shadowpos * 0.5 + 0.5;
-
-    return shadowpos;
 }
 
 vec4 GetVolumetricLight(inout vec3 color, inout float vlFactor, vec3 translucentMult, float lViewPos0, float lViewPos1, vec3 nViewPos, float VdotL, float VdotU, vec2 texCoord, float z0, float z1, float dither) {
@@ -161,9 +154,7 @@ vec4 GetVolumetricLight(inout vec3 color, inout float vlFactor, vec3 translucent
         #if SHADOW_QUALITY > -1
             vec4 shadowPosition = shadowMatrix * vec4(playerPos, 1.0);
             shadowPosition /= shadowPosition.w;
-            float distb = sqrt(shadowPosition.x * shadowPosition.x + shadowPosition.y * shadowPosition.y);
-            float distortFactor = 1.0 - shadowMapBias + distb * shadowMapBias;
-            shadowPosition = DistortShadow(shadowPosition, distortFactor);
+            shadowPosition.xyz = DistortShadowClip(shadowPosition.xyz) * 0.5 + 0.5;
             //shadowPosition.z += 0.0001;
 
             #ifdef OVERWORLD
@@ -244,7 +235,9 @@ vec4 GetVolumetricLight(inout vec3 color, inout float vlFactor, vec3 translucent
     // Decision of Intensity for Scene Aware Light Shafts //
     #if defined OVERWORLD && LIGHTSHAFT_BEHAVIOUR == 1 && SHADOW_QUALITY >= 1
         if (viewWidth + viewHeight - gl_FragCoord.x - gl_FragCoord.y < 1.5) {
-            if (frameCounter % int(0.06666 / frameTimeSmooth + 0.5) == 0) { // Change speed is not too different above 10 fps
+            // Keep a valid divisor during startup and frame times slower than 7.5 FPS.
+            int updateInterval = max(1, int(0.06666 / max(frameTimeSmooth, 0.0001) + 0.5));
+            if (frameCounter % updateInterval == 0) {
                 int salsX = 5;
                 int salsY = 5;
                 float heightThreshold = 6.0;
@@ -268,7 +261,7 @@ vec4 GetVolumetricLight(inout vec3 color, inout float vlFactor, vec3 translucent
                     }
                 }
 
-                float salsCheck = salsSampleSum / salsSampleCount;
+                float salsCheck = salsSampleSum / max(salsSampleCount, 1);
                 int reduceAmount = 2;
 
                 int skyCheck = 0;

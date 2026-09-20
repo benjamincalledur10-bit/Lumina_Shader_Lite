@@ -1,10 +1,7 @@
+#include "/lib/util/shadowProjection.glsl"
+
 vec3 GetShadowPos(vec3 playerPos) {
-    vec3 shadowPos = PlayerToShadow(playerPos);
-    float distb = sqrt(shadowPos.x * shadowPos.x + shadowPos.y * shadowPos.y);
-    float distortFactor = distb * shadowMapBias + (1.0 - shadowMapBias);
-    shadowPos.xy /= distortFactor;
-    shadowPos.z *= 0.3; // [Lite Fix] Matching shadow.glsl for accuracy
-    return shadowPos * 0.5 + 0.5;
+    return DistortShadowClip(PlayerToShadow(playerPos)) * 0.5 + 0.5;
 }
 
 vec3 SampleShadow(vec3 shadowPos, float colorMult, float colorPow) {

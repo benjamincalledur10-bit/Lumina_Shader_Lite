@@ -84,9 +84,9 @@ The default shader-pack directory is usually:
 
 ## Development
 
-The development branch currently contains **v1.2.8-rc.1**, targeting compatibility
+The development branch currently contains **v1.2.8-rc.2**, targeting compatibility
 and stability from Minecraft 1.16.5 through 26.3. The candidate is available as
-[`Lumina_Shader_Lite_v1.2.8-rc.1.zip`](releases/Lumina_Shader_Lite_v1.2.8-rc.1.zip).
+[`Lumina_Shader_Lite_v1.2.8-rc.2.zip`](releases/Lumina_Shader_Lite_v1.2.8-rc.2.zip).
 See [compatibility coverage and pending in-game tests](docs/COMPATIBILITY.md)
 before treating the candidate as a stable release. Offline compilation does not
 certify every game, loader, GPU or mod combination.

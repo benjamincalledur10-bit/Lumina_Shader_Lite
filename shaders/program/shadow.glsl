@@ -254,6 +254,7 @@ vec2 lmCoord;
 
 //Includes//
 #include "/lib/util/spaceConversion.glsl"
+#include "/lib/util/shadowProjection.glsl"
 
 #if defined WAVING_ANYTHING_TERRAIN || defined WAVING_WATER_VERTEX
     #include "/lib/materials/materialMethods/wavingBlocks.glsl"
@@ -300,7 +301,8 @@ void main() {
                 vec2 texMinMidCoord = texCoord - midCoord;
             #endif
             if (texMinMidCoord.y < 0.0) {
-                vec3 normal = gl_NormalMatrix * gl_Normal;
+                // position is in player space; gl_NormalMatrix produces shadow-view normals.
+                vec3 normal = mat3(shadowModelViewInverse) * gl_NormalMatrix * gl_Normal;
                 position.xyz += normal * 0.35;
             }
         }
@@ -330,10 +332,7 @@ void main() {
 
     gl_Position = shadowProjection * shadowModelView * position;
 
-    float lVertexPos = sqrt(gl_Position.x * gl_Position.x + gl_Position.y * gl_Position.y);
-    float distortFactor = lVertexPos * shadowMapBias + (1.0 - shadowMapBias);
-    gl_Position.xy *= 1.0 / distortFactor;
-    gl_Position.z = gl_Position.z * 0.3; // [Lite Fix] Sweet spot for sharpness and distance (0.3)
+    gl_Position.xyz = DistortShadowClip(gl_Position.xyz);
 }
 
 #endif

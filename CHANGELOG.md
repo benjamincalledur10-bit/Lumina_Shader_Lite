@@ -1,5 +1,37 @@
 # Changelog
 
+## Lumina Shader Lite v1.2.8-rc.2 — 2026-09-19
+
+Shadow-focused bug fixes following the compatibility candidate. This remains a
+release candidate pending visual testing in Minecraft.
+
+### Fixed
+
+- Unified shadow-map projection for the writer, surface lighting, cloud occlusion
+  and volumetric light. Clouds/light shafts previously compared a 0.2-scaled
+  depth against a map written with a 0.3 scale, producing incorrect occlusion.
+- Transformed the foliage caster offset back into player space before adding it
+  to vertex positions when the perpendicular-lighting tweaks are active.
+- Corrected optional Reimagined cloud-shadow projection for tilted sun/moon paths,
+  including both cloud layers, and avoided projection at/below the horizon.
+- Prevented scene-aware light shafts from using a zero update divisor during
+  slow frames or invalid arithmetic during startup.
+- Kept scene-aware light-shaft calculations finite when no valid shadow-height
+  samples are available.
+
+### Validation
+
+- Added numerical regression tests for depth comparisons, cloud projection,
+  foliage coordinate transforms, low-FPS update intervals and empty sample sets.
+- Extended the compilation runner to enable/disable boolean options so optional
+  cloud shadows and double cloud layers are actually compiled in stress tests.
+- Preserved the existing shadow resolutions, filtering sample counts and profile
+  defaults; this candidate does not add a new shadow effect.
+- See `docs/SHADOW_AUDIT.md` for findings and the pending in-game checks.
+
+---
+
+
 ## Lumina Shader Lite v1.2.8-rc.1 — 2026-09-19
 
 Compatibility and stability candidate targeting Minecraft Java 1.16.5 through

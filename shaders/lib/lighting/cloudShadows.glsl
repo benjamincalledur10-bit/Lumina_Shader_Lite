@@ -18,20 +18,13 @@
         #endif
 
         #ifdef CLOUDS_REIMAGINED
-            float EdotL = clamp(dot(eastVec, lightVec), -1.0, 1.0);
-            float EdotLM = tan(acos(EdotL));
-            EdotLM = EdotLM < 0.0 ? min(EdotLM, -0.0001) : max(EdotLM, 0.0001);
-
-            #if SUN_ANGLE != 0
-                float NVdotLM = tan(acos(clamp(dot(northVec, lightVec), -1.0, 1.0)));
-                NVdotLM = NVdotLM < 0.0 ? min(NVdotLM, -0.0001) : max(NVdotLM, 0.0001);
-            #endif
+            vec3 worldLight = mat3(gbufferModelViewInverse) * lightVec;
+            if (worldLight.y <= 0.0001) return 1.0;
+            vec2 cloudProjection = worldLight.xz / worldLight.y;
+            float EdotL = clamp(worldLight.x, -1.0, 1.0);
 
             float distToCloudLayer1 = cloudAlt1i - worldPos.y;
-            vec3 cloudOffset1 = vec3(distToCloudLayer1 / EdotLM, 0.0, 0.0);
-            #if SUN_ANGLE != 0
-                cloudOffset1.z += distToCloudLayer1 / NVdotLM;
-            #endif
+            vec3 cloudOffset1 = vec3(cloudProjection.x, 0.0, cloudProjection.y) * distToCloudLayer1;
             vec2 cloudPos1 = GetRoundedCloudCoord(ModifyTracePos(worldPos + cloudOffset1, cloudAlt1i).xz, 0.35);
 
             #ifndef COMPOSITE
@@ -43,10 +36,7 @@
 
             #ifdef DOUBLE_REIM_CLOUDS
                 float distToCloudLayer2 = cloudAlt2i - worldPos.y;
-                vec3 cloudOffset2 = vec3(distToCloudLayer2 / EdotLM, 0.0, 0.0);
-                #if SUN_ANGLE != 0
-                    cloudOffset2.z += distToCloudLayer2 / NVdotLM;
-                #endif
+                vec3 cloudOffset2 = vec3(cloudProjection.x, 0.0, cloudProjection.y) * distToCloudLayer2;
                 vec2 cloudPos2 = GetRoundedCloudCoord(ModifyTracePos(worldPos + cloudOffset2, cloudAlt2i).xz, 0.35);
                 float cloudSample2 = texture2D(gaux4, cloudPos2).b;
                 cloudSample2 *= clamp(distToCloudLayer2 * 0.1, 0.0, 1.0);

@@ -54,6 +54,14 @@ def profile_options() -> dict[str, dict[str, str]]:
 
 def apply_options(source: str, options: dict[str, str]) -> str:
     for name, value in options.items():
+        if value in ("true", "false"):
+            pattern = (r'(?m)^[ \t]*(?://[ \t]*)?#define[ \t]+' + re.escape(name)
+                       + r'[ \t]*(?://[^\n]*)?$')
+            replacement = ("" if value == "true" else "//") + "#define " + name
+            source, count = re.subn(pattern, replacement, source)
+            if not count:
+                raise ValueError(f"Unknown boolean shader option: {name}")
+            continue
         source = re.sub(r'(?m)^(\s*#define\s+' + re.escape(name) + r')\s+\S+',
                         lambda match: match[1] + " " + value, source)
         source = re.sub(r'(?m)^(\s*const\s+\w+\s+' + re.escape(name) + r'\s*=\s*)[^;]+',

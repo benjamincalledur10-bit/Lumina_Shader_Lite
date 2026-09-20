@@ -1,10 +1,16 @@
 # Lumina Lite v1.2.8 compatibility work
 
-The development build is **v1.2.8-rc.1**. Its target is every stable Minecraft
+The development build is **v1.2.8-rc.2**. Its target is every stable Minecraft
 Java release from **1.16.5 through 26.3**. The published stable pack remains
 v1.2.7. This candidate adds compatibility fixes, not new visual effects.
 
 ## What has been verified
+
+The initial RC1 work established the broad version-boundary coverage below.
+RC2 adds the focused [shadow audit and stress tests](SHADOW_AUDIT.md).
+The report for each candidate records the runs performed on that candidate;
+RC1 results are retained as historical evidence, not relabeled as RC2 results.
+
 
 - Property regression tests cover all 35 stable releases in that interval:
   1.16.5; 1.17–1.17.1; 1.18–1.18.2; 1.19–1.19.4; 1.20–1.20.6;
@@ -31,7 +37,7 @@ outside this compilation matrix. Optional integrations need their own in-game
 validation.
 
 Machine-readable offline results are in
-[validation-v1.2.8-rc.1.json](validation-v1.2.8-rc.1.json).
+[validation-v1.2.8-rc.2.json](validation-v1.2.8-rc.2.json).
 
 ## Runtime validation status
 
@@ -81,7 +87,7 @@ on Homebrew). The runner also accepts `--compiler /path/to/glslang`.
 
 ```sh
 python3 -m unittest discover -s tests -v
-python3 scripts/validate_shader.py --version 1.2.8-rc.1 --zip releases/Lumina_Shader_Lite_v1.2.8-rc.1.zip
+python3 scripts/validate_shader.py --version 1.2.8-rc.2 --zip releases/Lumina_Shader_Lite_v1.2.8-rc.2.zip
 python3 scripts/compile_shader.py --report /tmp/lumina-matrix.json
 python3 scripts/compile_shader.py --versions 1.16.5 1.20.1 --loaders iris-legacy
 python3 scripts/compile_shader.py --versions 1.21.11 26.3 --loaders iris-modern --dh

@@ -1,0 +1,186 @@
+{
+  "candidate": "1.2.8-rc.2",
+  "date": "2026-09-19",
+  "shader_tree_sha256": "95fdbf75eb30583c5ed80e02e0569cf3153f978cbed7fc0ff93ca2b3ca263726",
+  "runtime_validation": "Not performed; shadow fixes still require in-game visual validation.",
+  "unit_tests_passed": 20,
+  "property_versions": [
+    "1.16.5",
+    "1.17",
+    "1.17.1",
+    "1.18",
+    "1.18.1",
+    "1.18.2",
+    "1.19",
+    "1.19.1",
+    "1.19.2",
+    "1.19.3",
+    "1.19.4",
+    "1.20",
+    "1.20.1",
+    "1.20.2",
+    "1.20.3",
+    "1.20.4",
+    "1.20.5",
+    "1.20.6",
+    "1.21",
+    "1.21.1",
+    "1.21.2",
+    "1.21.3",
+    "1.21.4",
+    "1.21.5",
+    "1.21.6",
+    "1.21.7",
+    "1.21.8",
+    "1.21.9",
+    "1.21.10",
+    "1.21.11",
+    "26.1",
+    "26.1.1",
+    "26.1.2",
+    "26.2",
+    "26.3"
+  ],
+  "total_program_pairs": 5628,
+  "runs": [
+    {
+      "kind": "offline GLSL compilation and linking; no runtime/GPU certification",
+      "compiler": "Glslang Version: 11:16.6.0",
+      "versions": [
+        "1.16.5",
+        "26.3"
+      ],
+      "loaders": [
+        "optifine",
+        "iris-modern"
+      ],
+      "profiles": [
+        "POTATO",
+        "VERYLOW",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "VERYHIGH",
+        "ULTRA"
+      ],
+      "distant_horizons": false,
+      "options": {},
+      "vendor_macro": "NVIDIA",
+      "os_macro": "WINDOWS",
+      "program_pairs": 2352,
+      "failures": []
+    },
+    {
+      "kind": "offline GLSL compilation and linking; no runtime/GPU certification",
+      "compiler": "Glslang Version: 11:16.6.0",
+      "versions": [
+        "1.16.5",
+        "26.3"
+      ],
+      "loaders": [
+        "optifine",
+        "iris-modern"
+      ],
+      "profiles": [
+        "MEDIUM",
+        "ULTRA"
+      ],
+      "distant_horizons": false,
+      "options": {
+        "CLOUD_SHADOWS": "true",
+        "DOUBLE_REIM_CLOUDS": "true",
+        "SUN_ANGLE": "0",
+        "LIGHTSHAFT_BEHAVIOUR": "1"
+      },
+      "vendor_macro": "NVIDIA",
+      "os_macro": "WINDOWS",
+      "program_pairs": 672,
+      "failures": []
+    },
+    {
+      "kind": "offline GLSL compilation and linking; no runtime/GPU certification",
+      "compiler": "Glslang Version: 11:16.6.0",
+      "versions": [
+        "1.16.5",
+        "26.3"
+      ],
+      "loaders": [
+        "optifine",
+        "iris-modern"
+      ],
+      "profiles": [
+        "HIGH",
+        "ULTRA"
+      ],
+      "distant_horizons": false,
+      "options": {
+        "CLOUD_SHADOWS": "true",
+        "DOUBLE_REIM_CLOUDS": "true",
+        "SUN_ANGLE": "-40",
+        "SHADOW_QUALITY": "5",
+        "SHADOW_SMOOTHING": "1",
+        "shadowDistance": "1024.0",
+        "RP_MODE": "2",
+        "TAA_MODE": "0",
+        "ENTITY_SHADOW": "2"
+      },
+      "vendor_macro": "NVIDIA",
+      "os_macro": "WINDOWS",
+      "program_pairs": 672,
+      "failures": []
+    },
+    {
+      "kind": "offline GLSL compilation and linking; no runtime/GPU certification",
+      "compiler": "Glslang Version: 11:16.6.0",
+      "versions": [
+        "1.21.11",
+        "26.3"
+      ],
+      "loaders": [
+        "iris-modern"
+      ],
+      "profiles": [
+        "POTATO",
+        "VERYLOW",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "VERYHIGH",
+        "ULTRA"
+      ],
+      "distant_horizons": true,
+      "options": {},
+      "vendor_macro": "NVIDIA",
+      "os_macro": "WINDOWS",
+      "program_pairs": 1260,
+      "failures": []
+    },
+    {
+      "kind": "offline GLSL compilation and linking; no runtime/GPU certification",
+      "compiler": "Glslang Version: 11:16.6.0",
+      "versions": [
+        "1.16.5",
+        "26.3"
+      ],
+      "loaders": [
+        "optifine",
+        "iris-modern"
+      ],
+      "profiles": [
+        "LOW",
+        "HIGH"
+      ],
+      "distant_horizons": false,
+      "options": {
+        "LIGHTSHAFT_QUALI_DEFINE": "4",
+        "CLOUD_SHADOWS": "true",
+        "CLOUD_STYLE_DEFINE": "3",
+        "RP_MODE": "3"
+      },
+      "vendor_macro": "OTHER",
+      "os_macro": "MAC",
+      "program_pairs": 672,
+      "failures": []
+    }
+  ]
+}
