@@ -45,7 +45,7 @@ installing it. Availability on Modrinth and CurseForge may differ.
 
 | Component | Support |
 | --- | --- |
-| Game | Minecraft: Java Edition 1.16.5 through 1.21.11 and 26.1 through 26.3 (target range; in-game validation pending) |
+| Game | Minecraft: Java Edition 1.16.5 through 1.21.11 and 26.1 through 26.3 |
 | Shader loaders | Iris and OptiFine |
 | Rendering profiles | Potato, Very Low, Low, Medium, High, Very High, Ultra |
 | Edition | Java Edition only; Bedrock Edition is not supported |
