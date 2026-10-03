@@ -1,3 +1,27 @@
+# Lumina Lite v1.2.9 emergency hotfix
+
+The user reproduced a Minecraft 26.3 load failure with v1.2.8:
+`lines: ERROR: 0:399: Invalid call of undeclared identifier 'ftransform'`.
+Version 1.2.9 replaces that call only in the shared line vertex path with
+`gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex`.
+
+Validation of v1.2.8 below remains historical evidence, not a runtime guarantee
+for v1.2.9. The new regression check preprocesses actual expanded line shaders
+and checks that no `ftransform()` call remains active for any dimension/profile,
+including TAA on/off. This does not emulate Iris transformation or GPU execution.
+
+Before publishing, test v1.2.9 on the affected 26.3 setup: enable the shader,
+check block selection outlines and fishing lines in the Overworld, Nether and
+End, and compare TAA on/off. Record loader version, GPU/driver and `latest.log`.
+Loading and visual confirmation remain pending.
+
+Local checks: 21 regression tests passed; static metadata/include/profile checks
+and byte-for-byte ZIP/source parity passed (399 members). The GLSL compilation
+matrix was not run locally: glslang is unavailable and Homebrew installation was
+blocked by the pending Xcode license. No license was accepted automatically.
+
+---
+
 # Lumina Lite v1.2.8 compatibility work
 
 The stable release is **v1.2.8**, targeting every stable Minecraft Java release

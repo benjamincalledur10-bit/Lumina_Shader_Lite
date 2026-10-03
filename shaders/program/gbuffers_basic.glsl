@@ -139,9 +139,12 @@ flat out vec4 glColor;
 
 //Program//
 void main() {
-    // Compatibility-profile geometry, including lines, is transformed by the loader.
-    // Iris/OptiFine handle modern line widening when patching the built-in inputs.
-    gl_Position = ftransform();
+    #ifdef GBUFFERS_LINE
+        // Avoid relying on loader-injected ftransform() for the lines program.
+        gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;
+    #else
+        gl_Position = ftransform();
+    #endif
 
     #ifdef TAA
         gl_Position.xy = TAAJitter(gl_Position.xy, gl_Position.w);

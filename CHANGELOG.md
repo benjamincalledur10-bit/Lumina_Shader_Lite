@@ -1,5 +1,27 @@
 # Changelog
 
+## Lumina Shader Lite v1.2.9 — 2026-10-03
+
+Emergency hotfix for the reported Minecraft 26.3 shader activation failure.
+
+### Fixed
+
+- Line vertices use `gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex`
+  instead of relying on `ftransform()` being available after loader patching.
+- The shared fix applies to the Overworld, Nether and End line programs.
+- Other geometry keeps its existing transform; TAA jitter and profiles are unchanged.
+
+### Validation
+
+- All 21 regression tests and static ZIP/source parity checks pass.
+- Added a regression check on preprocessed line vertex sources for every profile
+  and dimension, with TAA enabled and disabled.
+- Runtime loading, block outlines and fishing lines must still be checked on the
+  affected Minecraft 26.3 installation before publishing. Offline GLSL validation
+  does not reproduce all Iris transformations.
+
+---
+
 ## Lumina Shader Lite v1.2.8 — 2026-09-19
 
 Compatibility and stability update targeting Minecraft Java 1.16.5–26.3.
