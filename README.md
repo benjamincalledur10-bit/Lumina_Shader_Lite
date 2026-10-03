@@ -20,10 +20,9 @@ Use one of the official distribution pages:
 - [Modrinth](https://modrinth.com/shader/lumina-shader-lite)
 - [CurseForge](https://www.curseforge.com/minecraft/shaders/lumina-shader-lite)
 
-The published stable release is **v1.2.8**. The emergency **v1.2.9** hotfix is
-prepared locally in `releases/Lumina_Shader_Lite_v1.2.9.zip`, pending Minecraft
-26.3 runtime verification and publication. Keep the ZIP compressed when installing.
-Availability on GitHub, Modrinth and CurseForge may differ.
+The current stable release is **v1.2.9**. Download
+`Lumina_Shader_Lite_v1.2.9.zip` from GitHub Releases and keep it compressed when
+installing it. Availability on Modrinth and CurseForge may differ.
 
 ## Highlights
 
@@ -60,7 +59,7 @@ graphics driver, and GPU.
 
 1. Install [Iris](https://www.irisshaders.dev/) or a compatible OptiFine
    version.
-2. For hotfix testing, use the local `releases/Lumina_Shader_Lite_v1.2.9.zip`.
+2. Download `Lumina_Shader_Lite_v1.2.9.zip` from an official source above.
 3. Open Minecraft and go to **Options > Video Settings > Shader Packs**.
 4. Open the shader-pack folder and place the downloaded ZIP inside it. Do not
    extract the archive.
@@ -88,8 +87,9 @@ The default shader-pack directory is usually:
 
 **v1.2.9** is an emergency hotfix for the reported Minecraft 26.3 lines-program
 load failure (`Invalid call of undeclared identifier 'ftransform'`). Line vertices
-now use an explicit projection/model-view transform. In-game verification of
-loading, block outlines and fishing lines in all dimensions remains pending.
+now use an explicit projection/model-view transform. The author confirmed successful
+loading in Minecraft 26.3. Visual checks of block outlines and fishing lines in
+all dimensions remain pending.
 See [compatibility coverage and pending in-game tests](docs/COMPATIBILITY.md).
 Offline checks do not reproduce all shader-loader transformations.
 

@@ -1,24 +1,26 @@
 # Changelog
 
-## Lumina Shader Lite v1.2.9 — 2026-10-03
+# 🚑 Lumina Shader Lite v1.2.9 — Emergency Hotfix
 
-Emergency hotfix for the reported Minecraft 26.3 shader activation failure.
+A focused update that fixes a compilation error preventing **Lumina Lite from loading in Minecraft 26.3**.
 
-### Fixed
+## 🛠️ Fixed
 
-- Line vertices use `gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex`
-  instead of relying on `ftransform()` being available after loader patching.
-- The shared fix applies to the Overworld, Nether and End line programs.
-- Other geometry keeps its existing transform; TAA jitter and profiles are unchanged.
+- Fixed the line shader error: `Invalid call of undeclared identifier 'ftransform'`.
+- Applied the correction across the **Overworld, Nether, and End**.
 
-### Validation
+## 🎨 Visuals & Settings
 
-- All 21 regression tests and static ZIP/source parity checks pass.
-- Added a regression check on preprocessed line vertex sources for every profile
-  and dimension, with TAA enabled and disabled.
-- Runtime loading, block outlines and fishing lines must still be checked on the
-  affected Minecraft 26.3 installation before publishing. Offline GLSL validation
-  does not reproduce all Iris transformations.
+- Preserved all quality profiles, visual effects, and **Temporal Antialiasing (TAA)** behavior.
+
+## 🧪 Validation
+
+- Added regression coverage for the line shader across **all 7 quality profiles and 3 dimensions**.
+- **21 automated tests passed.**
+- Distribution ZIP verification passed.
+- Successful loading in **Minecraft 26.3** confirmed through an in-game test by the author.
+
+💙 Thank you for reporting issues and helping improve Lumina Lite! If you experienced this loading error, please update to **v1.2.9**.
 
 ---
 

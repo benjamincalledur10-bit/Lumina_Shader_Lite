@@ -10,10 +10,10 @@ for v1.2.9. The new regression check preprocesses actual expanded line shaders
 and checks that no `ftransform()` call remains active for any dimension/profile,
 including TAA on/off. This does not emulate Iris transformation or GPU execution.
 
-Before publishing, test v1.2.9 on the affected 26.3 setup: enable the shader,
-check block selection outlines and fishing lines in the Overworld, Nether and
-End, and compare TAA on/off. Record loader version, GPU/driver and `latest.log`.
-Loading and visual confirmation remain pending.
+The author confirmed successful loading of v1.2.9 in Minecraft 26.3 on
+October 3, 2026. Exact loader/GPU/driver details and logs were not supplied.
+Visual checks of block selection outlines and fishing lines in the Overworld,
+Nether and End, including TAA on/off comparisons, remain pending.
 
 Local checks: 21 regression tests passed; static metadata/include/profile checks
 and byte-for-byte ZIP/source parity passed (399 members). The GLSL compilation
