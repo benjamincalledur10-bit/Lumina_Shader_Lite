@@ -101,15 +101,20 @@ class ShadowRegressionTests(unittest.TestCase):
                 self.assertAlmostEqual(actual, expected, places=12)
 
     def test_scene_aware_update_interval_is_valid_at_low_fps_and_startup(self):
-        text = source('lib/atmospherics/volumetricLight.glsl')
-        formula = expression(text, 'updateInterval')
-        for seconds in (0.0, 0.001, 1 / 60, 1 / 15, 1 / 7.5, 0.2, 1.0, 5.0):
-            interval = scalar(formula, frameTimeSmooth=seconds)
-            with self.subTest(frame_time=seconds):
-                self.assertGreaterEqual(interval, 1)
-                self.assertTrue(math.isfinite(interval))
-                self.assertIsInstance(120 % interval, int)
-        self.assertIn('frameCounter % updateInterval', text)
+        for path in ('lib/atmospherics/volumetricLight.glsl', 'program/deferred1.glsl'):
+            text = source(path)
+            formula = expression(text, 'updateInterval')
+            for seconds in (0.0, 0.001, 1 / 60, 1 / 15, 1 / 7.5, 0.2, 1.0, 5.0):
+                interval = scalar(formula, frameTimeSmooth=seconds)
+                with self.subTest(path=path, frame_time=seconds):
+                    self.assertGreaterEqual(interval, 1)
+                    self.assertTrue(math.isfinite(interval))
+                    self.assertIsInstance(120 % interval, int)
+                    if seconds >= 1 / 7.5:
+                        self.assertEqual(interval, 1)
+                    elif seconds > 0:
+                        self.assertEqual(interval, int(0.06666 / seconds + 0.5))
+            self.assertIn('frameCounter % updateInterval', text)
 
     def test_scene_aware_empty_shadow_samples_remain_finite(self):
         formula = expression(source('lib/atmospherics/volumetricLight.glsl'), 'salsCheck')

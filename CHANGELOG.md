@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.3.0 — Unreleased
+
+### Fixed
+
+- Prevented a zero update interval in the End light-shaft transition at low
+  frame rates and protected the calculation when smoothed frame time is zero.
+- Prevented an undefined GGX area-light rotation for degenerate grazing
+  directions, preserving the existing calculation for nonzero denominators.
+
+### Validation
+
+- Extended numerical interval regressions to the End and added GGX degeneracy
+  and ordinary-direction checks. In-game visual validation remains pending.
+
 # 🚑 Lumina Shader Lite v1.2.9 — Emergency Hotfix
 
 A focused update that fixes a compilation error preventing **Lumina Lite from loading in Minecraft 26.3**.

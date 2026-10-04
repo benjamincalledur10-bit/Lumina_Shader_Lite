@@ -377,7 +377,8 @@ void main() {
         vlFactor = texelFetch(colortex5, ivec2(viewWidth-1, viewHeight-1), 0).a;
 
         #ifdef END
-            if (frameCounter % int(0.06666 / frameTimeSmooth + 0.5) == 0) { // Change speed is not too different above 10 fps
+            int updateInterval = max(1, int(0.06666 / max(frameTimeSmooth, 0.0001) + 0.5));
+            if (frameCounter % updateInterval == 0) { // Change speed is not too different above 10 fps
 
                 #if MC_VERSION >= 12106
                     bool isEnderDragonDead = !heavyFog;

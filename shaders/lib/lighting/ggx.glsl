@@ -18,7 +18,9 @@ float GetNoHSquared(float radiusTan, float NoL, float NoV, float VoL) {
     float xNum = q * (-0.5 * p + 0.25 * VoBr * NoLVTr);
     float xDenom = p * p + s * ((s - 2.0 * p)) + NoLVTr * ((NoL * radiusCos + NoV) * VoLVTr * VoLVTr +
                    q * (-0.5 * (VoLVTr + VoL * radiusCos) - 0.5));
-    float twoX1 = 2.0 * xNum / (xDenom * xDenom + xNum * xNum);
+    float rotationDenom = xDenom * xDenom + xNum * xNum;
+    // A degenerate rotation keeps the original tangent instead of producing 0/0.
+    float twoX1 = rotationDenom > 0.0 ? 2.0 * xNum / rotationDenom : 0.0;
     float sinTheta = twoX1 * xDenom;
     float cosTheta = 1.0 - twoX1 * xNum;
     NoTr = cosTheta * NoTr + sinTheta * NoBr;
