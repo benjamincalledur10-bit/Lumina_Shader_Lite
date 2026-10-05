@@ -8,6 +8,10 @@
   dimensions. Distance blur and depth of field retain the pass. In-game visual
   comparison and before/after frame-time measurements remain pending; no FPS
   improvement is claimed yet.
+- Request `colortex0` mipmaps in `composite4` only when bloom is enabled.
+  Motion blur keeps its base-level reads, and `composite3` retains mipmaps for
+  distance blur and depth of field. This is a separate experiment pending
+  in-game image comparisons and frame-time measurements.
 
 ### Fixed
 
@@ -23,6 +27,8 @@
 - Added preprocessing regressions for the blur pass gate, RGB/alpha copy,
   downstream color reads, mipmaps, bloom-fog routing and TAA selection across
   all blur modes and dimensions, using Low/High and OptiFine/modern-Iris macros.
+- Compare the preprocessed bloom/motion-blur program against its unconditional
+  mipmap baseline across 144 combinations; only the mipmap request changes.
 
 # 🚑 Lumina Shader Lite v1.2.9 — Emergency Hotfix
 

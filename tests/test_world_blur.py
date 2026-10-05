@@ -31,6 +31,43 @@ class WorldBlurTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         return result.stdout
 
+    def test_bloom_mipmaps_preserve_blur_and_fragment_calculations(self):
+        mipmap = 'const bool colortex0MipmapEnabled = true;'
+        shader = (ROOT / 'shaders/program/composite4.glsl').read_text()
+        guard = '#if BLOOM_ENABLED == 1\n    ' + mipmap + '\n#endif'
+        self.assertEqual(shader.count(guard), 1)
+        for profile in ('LOW', 'HIGH'):
+            for bloom in ('-1', '1'):
+                for motion in ('-1', '1'):
+                    for blur in ('0', '1', '2'):
+                        options = COMPILER.profile_options()[profile] | {
+                            'BLOOM_ENABLED': bloom, 'MOTION_BLUR_EFFECT': motion, 'WORLD_BLUR': blur}
+                        for loader in ('optifine', 'iris-modern'):
+                            macros = COMPILER.environment('26.3', loader)
+                            for dimension in ('world0', 'world-1', 'world1'):
+                                with self.subTest(profile=profile, bloom=bloom, motion=motion,
+                                                  blur=blur, loader=loader, dimension=dimension):
+                                    directory = ROOT / 'shaders' / dimension
+                                    expanded = COMPILER.expand(directory / 'composite4.fsh')
+                                    self.assertEqual(expanded.count(guard), 1)
+                                    baseline = self.preprocess(COMPILER.apply_options(
+                                        expanded.replace(guard, mipmap), options), macros)
+                                    current = self.preprocess(COMPILER.apply_options(expanded, options), macros)
+                                    self.assertEqual(mipmap in current, bloom == '1')
+                                    # Only loader mipmap requests change, never fragment calculations.
+                                    normalize = lambda s: re.sub(r'\s+', ' ', s.replace(mipmap, '')).strip()
+                                    self.assertEqual(normalize(current), normalize(baseline))
+                                    self.assertEqual('blur += BloomTile(' in current, bloom == '1')
+                                    self.assertEqual('texture2DLod(colortex0, coordb, 0).rgb' in current,
+                                                     motion == '1')
+                                    world_blur = self.preprocess(COMPILER.apply_options(
+                                        COMPILER.expand(directory / 'composite3.fsh'), options), macros)
+                                    self.assertEqual(mipmap in world_blur, blur != '0')
+                                    self.assertEqual('DoWorldBlur(color, z1, lViewPos);' in world_blur,
+                                                     blur != '0')
+                                    self.assertEqual('gl_FragData[1] = vec4(color, 1.0);' in current,
+                                                     motion == '1')
+
     def test_gate_and_dependencies_across_blur_dimensions_taa_and_profiles(self):
         properties = (ROOT / 'shaders/shaders.properties').read_text()
         # Property section headings/comments are not C preprocessor directives.
@@ -64,6 +101,7 @@ class WorldBlurTests(unittest.TestCase):
                                                  blur != '0')
                                 self.assertEqual('const bool colortex0MipmapEnabled = true;' in sources['composite3'],
                                                  blur != '0')
+                                # Default bloom remains enabled; its mipmaps are required.
                                 self.assertIn('const bool colortex0MipmapEnabled = true;', sources['composite4'])
                                 self.assertIn('texture2D(colortex0, bloomCoord).rgb', sources['composite4'])
                                 self.assertIn('texture2D(colortex0, texCoord).rgb', sources['composite5'])

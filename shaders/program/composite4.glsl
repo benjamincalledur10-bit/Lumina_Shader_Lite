@@ -15,7 +15,9 @@ noperspective in vec2 texCoord;
 #endif
 
 //Pipeline Constants//
-const bool colortex0MipmapEnabled = true;
+#if BLOOM_ENABLED == 1
+    const bool colortex0MipmapEnabled = true;
+#endif
 
 //Common Variables//
 #if DETAIL_QUALITY == 0

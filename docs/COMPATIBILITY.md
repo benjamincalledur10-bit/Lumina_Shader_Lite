@@ -8,7 +8,7 @@ At mode 0 the original fragment program only reads `colortex0.rgb` and writes
 the same RGB with alpha 1. The preceding `composite1` already writes alpha 1.
 No explicit flip is added: skipping both the copy and its automatic flip leaves
 the current image available to the next pass. `composite4` reads that logical
-`colortex0` and requests its own mipmaps; `composite5` also reads its RGB before
+`colortex0` and requests its own mipmaps when bloom is enabled; `composite5` also reads its RGB before
 writing `colortex3`, which feeds the TAA path. Bloom fog is already applied by
 `composite1` at mode 0, and is disabled in the End.
 
@@ -44,6 +44,43 @@ TAA selection. These checks do not execute a loader or GPU.
 5. Keep the experiment for release only after visual/loader checks pass and
    measurements confirm reduced work without regressions. Record results here;
    until then, FPS gains and runtime compatibility are unverified.
+
+---
+
+# v1.3.0 development experiment: conditional bloom mipmaps
+
+The only shader change in this experiment wraps `composite4`'s
+`colortex0MipmapEnabled` declaration in `#if BLOOM_ENABLED == 1`. The actual OFF
+value is `-1`. Motion blur samples color using `texelFetch` or explicit LOD 0;
+its computations, outputs and buffer flips are unchanged. `composite3` retains
+its independent mipmap request for `WORLD_BLUR=1` and `2`.
+
+The additional regression in `tests/test_world_blur.py` checks all 36
+combinations of bloom on/off, motion blur on/off, three world-blur modes and
+three dimensions. Low/High profiles and OptiFine/modern-Iris macro environments
+at Minecraft 26.3 expand this to 144 combinations. Each compares the actual
+expanded `composite4` against the unconditional-mipmap baseline: preprocessed
+fragment calculations must match after removing the mipmap declaration. It
+also checks bloom execution, motion-blur base-level reads and outputs, and
+the retained blur/mipmap request in `composite3`.
+
+The downstream `composite5` color read uses implicit LOD (`texture2D`) at
+fullscreen coordinates. Its source is unchanged. Removing a mipmap request
+can affect sampler filtering state, so matching preprocessed calculations
+does not establish pixel equivalence. Specifically inspect this read in a
+GPU capture and compare fine texture edges at native and non-square resolutions.
+Do not force LOD 0 as part of this experiment without separate evidence.
+
+Visual validation of the preceding `composite3` optimization is still pending.
+Use commit `04d15ac` as this experiment's immediate baseline, after validating
+that preceding change independently. Repeat the same-scene screenshot and
+median/p95 frame-time procedure above for the 36 combinations, on compatible
+Iris and OptiFine installations. With bloom OFF, verify no mipmap generation
+is requested by `composite4`; with world blur ON, verify `composite3` still
+generates the levels it needs. Check motion blur, bloom, TAA, dimension changes,
+window resizing and shader reloads. GPU timings should isolate mipmap cost.
+No in-game comparison, FPS result or runtime compatibility result is recorded
+for this experiment. Offline preprocessing does not replace GLSL compilation.
 
 ---
 
