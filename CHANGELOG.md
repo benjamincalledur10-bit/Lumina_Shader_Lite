@@ -2,6 +2,13 @@
 
 ## 1.3.0 — Unreleased
 
+### Optimization experiment
+
+- Skip the fullscreen `composite3` color copy when `WORLD_BLUR=0` in all three
+  dimensions. Distance blur and depth of field retain the pass. In-game visual
+  comparison and before/after frame-time measurements remain pending; no FPS
+  improvement is claimed yet.
+
 ### Fixed
 
 - Prevented a zero update interval in the End light-shaft transition at low
@@ -13,6 +20,9 @@
 
 - Extended numerical interval regressions to the End and added GGX degeneracy
   and ordinary-direction checks. In-game visual validation remains pending.
+- Added preprocessing regressions for the blur pass gate, RGB/alpha copy,
+  downstream color reads, mipmaps, bloom-fog routing and TAA selection across
+  all blur modes and dimensions, using Low/High and OptiFine/modern-Iris macros.
 
 # 🚑 Lumina Shader Lite v1.2.9 — Emergency Hotfix
 
