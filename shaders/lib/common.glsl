@@ -11,6 +11,7 @@
 ---------------------------------------------------------------------*/
 
 //User Settings//
+    #include "/lib/voxy/bridge.glsl"
     #define SHADER_STYLE 4 //[1 4]
 
     #define RP_MODE 1 //[1 0 3 2]
@@ -637,7 +638,10 @@
     #endif
 
 //Very Common Stuff//
-    #include "/lib/uniforms.glsl"
+    // Voxy supplies patch uniforms in its own UBO. Other programs use Iris uniforms.
+    #ifndef LUMINA_VOXY_PATCH
+        #include "/lib/uniforms.glsl"
+    #endif
 
     #if SHADOW_QUALITY == -1
       float timeAngle = worldTime / 24000.0;

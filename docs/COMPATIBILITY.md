@@ -1,3 +1,100 @@
+# v1.3.0 experimental Voxy integration
+
+Implemented against Voxy's API-3 macro and version-1 shaderpack descriptor,
+reviewed November 16, 2026, at upstream commit
+[`5bf3335`](https://github.com/MCRcortex/voxy/tree/5bf33350a1cc7bb7e2b5d947b236c56d878b8a7d).
+That source targets Minecraft 26.3 and Iris 1.11.7. These identify the reviewed
+contract, not a completed in-game compatibility test. Stable v1.2.9 does not
+contain this integration.
+
+## Implemented scope
+
+- Per-dimension `voxy.json`, opaque and translucent callbacks for all three
+  dimensions. Opaque LODs write color and neutral material metadata; basic
+  translucency writes color with separate alpha blending. Shader bodies reuse
+  Lumina's existing lighting and translucent fog rather than vanilla lighting.
+- Voxy's `customId` uses the pack's existing block mapping for basic foliage,
+  lava and selected emissive handling. Distant geometry has simplified materials:
+  near-field PBR normal maps, parallax, waving geometry and procedural water
+  waves/reflections are not reproduced by these callbacks. These remain visual
+  limits to evaluate at the near/LOD transition.
+- LODs are excluded from vanilla depth. A small internal bridge maps existing
+  distant-terrain consumers to `vxDepthTexTrans`, `vxDepthTexOpaque`, `vxProj`,
+  `vxProjInv`, `vxProjPrev` and the block-converted `vxRenderDistance`. It enables
+  the pack's internal distant-depth branches; it does not require installing DH.
+- Deferred world-position reconstruction and TAA use Voxy model-view matrices;
+  native callbacks use the same jitter offsets and scale as near geometry.
+  Ordinary shaders continue to use standard Iris uniform declarations; callbacks
+  receive their fields through Voxy's own UBO.
+- No descriptor is active without Voxy API 3 or newer. If real DH macros are
+  also present, the bridge is inactive and the Voxy descriptor is suppressed.
+  Use one LOD renderer at a time. OptiFine is not a Voxy integration target.
+
+## Offline evidence
+
+Local GLSL checks use the official Khronos glslang 16.6.0 compiler, not a GPU.
+The native harness supplies the documented Voxy fragment-parameter struct,
+requested UBO fields and samplers, then compiles the expanded pack callbacks
+and TAA function. With `--voxy-source`, it also assembles and links the actual
+MDIC vertex/fragment GLSL from the pinned Voxy checkout, including its imports,
+native fragment struct, opaque/translucent branches and reverse/zero-to-one
+depth defines. The callback's `gl_FragCoord` conversion is reproduced; the full
+Java AST transformation and runtime framebuffer bindings are not executed.
+Source compatibility does not establish pixel
+correctness or mod binary compatibility.
+
+- 126 native callback/TAA cases at default jitter and 126 with jitter enabled:
+  seven profiles, three dimensions, TAA on/off, opaque/translucent/TAA stages.
+- 36 optional-effect cases: Low/Ultra, bloom/motion blur off, depth of field on,
+  cloud shadows and light/atmosphere color controls on.
+- Additional source audit: link the actual Voxy MDIC renderer with the pack's
+  opaque/translucent callbacks for all seven profiles, three dimensions and
+  TAA on/off (84 pairs), plus 42 TAA function cases. The same real-renderer
+  check covers the 36 optional-effect cases above.
+- 588 ordinary shader program pairs with Voxy API-3 macros on 26.3 across all
+  seven profiles and three dimensions.
+- Regression compilation: 672 ordinary pairs at 1.16.5/26.3, Low/Ultra,
+  OptiFine/modern-Iris macros, and 360 DH pairs at 1.21.11/26.3, Low/Ultra.
+- Unit checks cover descriptor activation and precedence, buffer/blend contract,
+  typed bindings, jitter parity and renderer-specific depth/reprojection inputs.
+
+CI checks out the pinned Voxy source and runs the real-renderer links plus
+Voxy-enabled ordinary shaders. Reproduce (the standalone harness needs no checkout):
+
+```sh
+python3 -m unittest discover -s tests -v
+python3 scripts/validate_shader.py
+python3 scripts/compile_voxy.py --option TAA_JITTER=3 --report /tmp/voxy-native.json
+python3 scripts/compile_shader.py --versions 26.3 --loaders iris-modern --voxy --report /tmp/voxy-consumers.json
+python3 scripts/compile_voxy.py --voxy-source /path/to/voxy --option TAA_JITTER=3 --report /tmp/voxy-renderer.json
+```
+
+## Runtime acceptance still pending
+
+Use an actually compatible Minecraft/Iris/Sodium/Voxy installation. Record exact
+versions, GPU/driver, resolution and profile. First test Voxy alone as the LOD
+renderer, without DH. Check all dimensions and all seven profiles:
+
+1. Inspect chunk transitions, mountains against sky, leaves, emissive blocks,
+   water/glass, underwater views, sunrise/sunset, rain and dimension fog.
+2. Check LOD occlusion behind near terrain, entities, water and clouds. Verify
+   no LODs bleed through opaque objects or overwrite vanilla depth in captures.
+3. Compare TAA on/off and jitter levels while standing still and moving/turning;
+   inspect distant edges for ghosting, flicker or reprojection drift.
+4. Test Bloom OFF + WORLD_BLUR OFF, both other blur modes, motion blur, shadows,
+   window resizing and shader reloads. Treat depth-based post effects as unverified
+   until their actual near/LOD boundary behavior has been observed.
+5. Capture logs/screenshots and matching frame-time runs against the same pack
+   without Voxy. Check a separate DH installation for regressions. Do not label
+   the integration runtime-verified or claim a performance gain before this.
+
+Primary contracts: [Voxy patch parser](https://github.com/MCRcortex/voxy/blob/5bf33350a1cc7bb7e2b5d947b236c56d878b8a7d/src/main/java/me/cortex/voxy/client/iris/IrisShaderPatch.java),
+[fragment callback](https://github.com/MCRcortex/voxy/blob/5bf33350a1cc7bb7e2b5d947b236c56d878b8a7d/src/main/resources/assets/voxy/shaders/lod/gl46/quads.frag),
+[native depth samplers](https://github.com/MCRcortex/voxy/blob/5bf33350a1cc7bb7e2b5d947b236c56d878b8a7d/src/main/java/me/cortex/voxy/client/iris/VoxySamplers.java)
+and [Voxy uniforms](https://github.com/MCRcortex/voxy/blob/5bf33350a1cc7bb7e2b5d947b236c56d878b8a7d/src/main/java/me/cortex/voxy/client/iris/VoxyUniforms.java).
+
+---
+
 # v1.3.0 development experiment: skip inactive world blur
 
 `composite3` is disabled only for `WORLD_BLUR=0`, independently in the Overworld,

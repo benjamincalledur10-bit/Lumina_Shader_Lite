@@ -1,0 +1,47 @@
+#if defined VOXY && VOXY >= 3 && !defined DISTANT_HORIZONS
+{
+    "settings": "
+        #include "/lib/common.glsl"
+    ",
+    "version": 1,
+    "excludeLodsFromVanillaDepth": true,
+    "opaqueDrawBuffers": [0, 6],
+    "translucentDrawBuffers": [0],
+    "blending": {
+        "-1": "off",
+        "0": "SRC_ALPHA ONE_MINUS_SRC_ALPHA ONE ONE_MINUS_SRC_ALPHA"
+    },
+    "taaOffset": "
+        #include "/program/voxy_taa.glsl"
+    ",
+    "uniforms": [
+        "vxRenderDistance", "vxProj", "vxProjInv", "vxProjPrev",
+        "vxModelView", "vxModelViewInv", "vxModelViewPrev",
+        "worldTime", "worldDay", "sunAngle", "viewWidth", "viewHeight",
+        "near", "far", "screenBrightness", "nightVision", "rainFactor",
+        "rainStrength", "wetness", "fogColor", "fogStart", "fogEnd", "skyColor", "cloudHeight",
+        "cameraPosition", "previousCameraPosition", "cameraPositionInt",
+        "cameraPositionFract", "previousCameraPositionFract",
+        "inNetherWastes", "inCrimsonForest", "inWarpedForest", "inBasaltDeltas",
+        "inSoulValley", "inSnowy", "inDry", "inRainy",
+        "framemod8", "frameCounter", "frameTimeCounter", "isEyeInWater",
+        "eyeBrightness", "eyeBrightnessM", "eyeBrightnessM2", "isEyeInCave",
+        "blindness", "darknessFactor", "darknessLightFactor", "maxBlindnessDarkness",
+        "heldBlockLightValue", "heldBlockLightValue2", "heldItemId", "heldItemId2",
+        "relativeEyePosition", "moonPhase",
+        #if MC_VERSION >= 12109
+            "endFlashPosition", "endFlashIntensity",
+        #endif
+        "shadowModelView", "shadowModelViewInverse", "shadowProjection", "shadowProjectionInverse"
+    ],
+    "samplers": {
+        #ifdef CLOUD_SHADOWS
+            "gaux4": "sampler2D",
+        #endif
+        "noisetex": "sampler2D",
+        "shadowtex0": "sampler2DShadow",
+        "shadowtex1": "sampler2DShadow",
+        "shadowcolor0": "sampler2D"
+    }
+}
+#endif

@@ -252,7 +252,11 @@ void main() {
                 vec4 viewPosDH = dhProjectionInverse * (screenPosDH * 2.0 - 1.0);
                 viewPosDH /= viewPosDH.w;
                 lViewPos = length(viewPosDH.xyz);
-                playerPos = ViewToPlayer(viewPosDH.xyz);
+                #ifdef LUMINA_VOXY
+                    playerPos = (vxModelViewInv * vec4(viewPosDH.xyz, 1.0)).xyz;
+                #else
+                    playerPos = ViewToPlayer(viewPosDH.xyz);
+                #endif
                 waterRefColor = color.rgb;
                 
                 DoFog(color, skyFade, lViewPos, playerPos, VdotU, VdotS, dither, false, 0.0);

@@ -102,6 +102,7 @@ def main() -> int:
                         default=["optifine", "iris-modern"])
     parser.add_argument("--profiles", nargs="+", choices=PROFILES, default=list(PROFILES))
     parser.add_argument("--dh", action="store_true", help="Enable Distant Horizons macros and programs (Iris only)")
+    parser.add_argument("--voxy", action="store_true", help="Enable Voxy API-3 depth consumers (modern Iris only)")
     parser.add_argument("--option", action="append", default=[], metavar="NAME=VALUE")
     parser.add_argument("--vendor", choices=("NVIDIA", "AMD", "INTEL", "OTHER"), default="NVIDIA")
     parser.add_argument("--os", choices=("WINDOWS", "LINUX", "MAC"), default="WINDOWS")
@@ -112,6 +113,8 @@ def main() -> int:
         parser.error("Install glslang or provide --compiler; compilation cannot be skipped")
     if args.dh and "optifine" in args.loaders:
         parser.error("--dh requires Iris macro environments")
+    if args.voxy and (args.dh or args.loaders != ['iris-modern']):
+        parser.error('--voxy requires --loaders iris-modern and cannot be combined with --dh')
     options = profile_options()
     overrides = dict(item.split("=", 1) for item in args.option)
     files = sorted(p for p in SHADERS.glob("world*/*.vsh")
@@ -127,6 +130,8 @@ def main() -> int:
         version, loader, profile, path = case
         label = f"{version}/{loader}/{profile}/{path.parent.name}/{path.stem}"
         macros = environment(version, loader, args.dh, args.vendor, args.os)
+        if args.voxy:
+            macros += '#define VOXY 3\n'
         with tempfile.TemporaryDirectory(prefix="lumina-glsl-") as folder:
             paths = []
             for suffix, stage in ((".vsh", ".vert"), (".fsh", ".frag")):
@@ -159,6 +164,7 @@ def main() -> int:
               "compiler": subprocess.check_output([args.compiler, "--version"], text=True).splitlines()[0],
               "versions": args.versions, "loaders": args.loaders, "profiles": args.profiles,
               "distant_horizons": args.dh, "options": overrides,
+              "voxy": args.voxy,
               "vendor_macro": args.vendor, "os_macro": args.os,
               "program_pairs": len(cases), "failures": failures}
     if args.report:

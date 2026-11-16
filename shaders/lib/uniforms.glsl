@@ -122,7 +122,13 @@ uniform vec3 previousCameraPositionFract;
 #endif
 
 #ifdef DISTANT_HORIZONS
-    uniform int dhRenderDistance;
+    #ifdef LUMINA_VOXY
+        uniform int vxRenderDistance;
+        uniform mat4 vxModelViewInv;
+        uniform mat4 vxModelViewPrev;
+    #else
+        uniform int dhRenderDistance;
+    #endif
 
     uniform mat4 dhProjection;
     uniform mat4 dhProjectionInverse;

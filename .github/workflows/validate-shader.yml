@@ -52,6 +52,23 @@ jobs:
       - name: Compile Distant Horizons paths
         run: python scripts/compile_shader.py --versions 1.21.11 26.3 --loaders iris-modern --dh --report reports/dh.json
 
+      - name: Compile Voxy depth consumers
+        run: python scripts/compile_shader.py --versions 26.3 --loaders iris-modern --voxy --report reports/voxy-consumers.json
+
+      - name: Check out the reviewed Voxy renderer sources
+        uses: actions/checkout@v6
+        with:
+          repository: MCRcortex/voxy
+          ref: 5bf33350a1cc7bb7e2b5d947b236c56d878b8a7d
+          path: .voxy-reference
+          persist-credentials: false
+
+      - name: Link Voxy renderer shaders and compile TAA functions
+        run: python scripts/compile_voxy.py --voxy-source .voxy-reference --option TAA_JITTER=3 --report reports/voxy-callbacks.json
+
+      - name: Compile Voxy optional effects
+        run: python scripts/compile_voxy.py --voxy-source .voxy-reference --profiles LOW ULTRA --option BLOOM_ENABLED=-1 --option MOTION_BLUR_EFFECT=-1 --option WORLD_BLUR=2 --option CLOUD_SHADOWS=true --option LIGHT_COLOR_MULTS=true --option ATM_COLOR_MULTS=true --report reports/voxy-effects.json
+
       - name: Compile PBR and AMD workaround paths
         run: python scripts/compile_shader.py --versions 1.16.5 26.3 --option RP_MODE=2 --vendor AMD --report reports/pbr.json
 

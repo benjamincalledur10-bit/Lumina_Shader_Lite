@@ -48,6 +48,7 @@ installing it. Availability on Modrinth and CurseForge may differ.
 | Game | Minecraft: Java Edition 1.16.5 through 1.21.11 and 26.1 through 26.3 |
 | Shader loaders | Iris and OptiFine |
 | Rendering profiles | Potato, Very Low, Low, Medium, High, Very High, Ultra |
+| Voxy | Experimental API-3 integration on `luminalitedev` for v1.3.0; not included in stable v1.2.9 |
 | Edition | Java Edition only; Bedrock Edition is not supported |
 
 [Iris](https://www.irisshaders.dev/) is recommended for modern Minecraft

@@ -2,6 +2,22 @@
 
 ## 1.3.0 — Unreleased
 
+### Experimental mod compatibility
+
+- Added Voxy API-3 shaderpack integration for opaque terrain and basic
+  translucency in the Overworld, Nether and End, using Lumina's lighting.
+- Routed Voxy's native depth textures and projection matrices through the
+  existing distant-terrain fog, reflection and TAA consumers. LOD depth stays
+  separate from vanilla depth; Voxy TAA uses its own current/previous matrices
+  and the same jitter pattern as nearby geometry.
+- Added descriptor/UBO/callback regression checks, an offline GLSL harness and
+  CI compilation for Voxy consumers and optional effects. In-game validation is
+  pending; this does not certify universal Voxy/Iris/game compatibility.
+- Added offline linking against the actual MDIC renderer GLSL from a pinned
+  Voxy source revision, covering all profiles and the optional-effect cases.
+- Distant Horizons takes precedence if both renderer macros are present;
+  simultaneous Voxy/Distant Horizons rendering is outside this integration.
+
 ### Optimization experiment
 
 - Skip the fullscreen `composite3` color copy when `WORLD_BLUR=0` in all three

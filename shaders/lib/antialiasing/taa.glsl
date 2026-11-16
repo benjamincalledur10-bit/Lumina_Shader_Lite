@@ -71,10 +71,18 @@ vec2 Reprojection(vec4 viewPos1) {
 
         vec4 viewPosPrev = dhProjectionInverse * vec4(screenPos, 1.0);
         viewPosPrev /= viewPosPrev.w;
-        viewPosPrev = gbufferModelViewInverse * viewPosPrev;
+        #ifdef LUMINA_VOXY
+            viewPosPrev = vxModelViewInv * viewPosPrev;
+        #else
+            viewPosPrev = gbufferModelViewInverse * viewPosPrev;
+        #endif
 
         vec4 previousPosition = viewPosPrev + vec4(cameraPosition - previousCameraPosition, 0.0);
-        previousPosition = gbufferPreviousModelView * previousPosition;
+        #ifdef LUMINA_VOXY
+            previousPosition = vxModelViewPrev * previousPosition;
+        #else
+            previousPosition = gbufferPreviousModelView * previousPosition;
+        #endif
         previousPosition = dhPreviousProjection * previousPosition;
         return previousPosition.xy / previousPosition.w * 0.5 + 0.5;
     }
