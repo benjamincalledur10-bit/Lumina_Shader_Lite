@@ -1,3 +1,96 @@
+# v1.3.0 Create/Flywheel integration through Colorwheel
+
+Reviewed November 16, 2026 against Colorwheel source commit
+[`0a3e94b`](https://github.com/djefrey/Colorwheel/tree/0a3e94b7b300ebf188ef030a8ff14734408ec85d).
+That checkout identifies Colorwheel 1.3.2 on Minecraft 1.20.1, Flywheel 1.0.6,
+Create Forge 6.0.4 and Create Fabric 6.0.7. These are the reviewed source
+dependencies, not an installed/tested mod combination. Older Flywheel backends
+and the separate Iris/Flywheel compatibility mod are outside this integration.
+
+## Source review and fixes
+
+The inherited pack already supplied opaque, translucent and shadow Colorwheel
+programs, but the ordinary compiler explicitly excluded them. This update
+retains those programs and adds dedicated handling for the other material blend
+modes. It does not enable Lite's disabled voxel/colored-light features.
+
+| Finding | Change |
+| --- | --- |
+| Colorwheel material overlays mixed all four channels, changing glass opacity | Mix only RGB and preserve the material's alpha |
+| The shadow callback applied vertex tint before ordinary shadow code multiplied it again | Skip the second tint in the Colorwheel natural/water shadow paths |
+| Flywheel vertex alpha was reused as vanilla terrain AO | Keep opacity in the native material callback; pass neutral AO alpha to Lumina lighting |
+| Raw texture alpha could discard terrain before the Flywheel material ran | Delegate Colorwheel cutout decisions to its callback |
+| The frontmost OIT material attachment used RGB8 without alpha | Use RGBA8 for that OIT attachment; keep ordinary buffer formats intact |
+| Modern-Iris fade code referenced `mc_chunkFade` for instanced geometry | Use fade 1 for Colorwheel instances; ordinary chunk fading remains active |
+| Additive/glint/lightning/crumbling materials fell back to terrain outputs with their own blend modes | Add color-only programs so these modes cannot blend into material/transmission metadata |
+| Colorwheel shadow activation only checked entity-shadow settings | Also disable it when shadow quality is off |
+
+All Colorwheel entry points now explicitly declare `#version 330 compatibility`.
+The opaque and translucent paths share Lumina's terrain/water lighting; special
+blend passes preserve the material output and use Colorwheel's native blend
+mode, writing only scene color before deferred processing. Shadow outputs retain
+the existing DRAWBUFFERS directives and OIT frontmost policy.
+
+## Offline checks
+
+`scripts/compile_colorwheel.py` reads the actual `clrwl_computeFragment`,
+discard, light and overlay callback bodies from the pinned Colorwheel checkout.
+Synthetic Flywheel inputs/material hooks exercise cutout, emissive and overlay
+cases; glslang then compiles and links each pack vertex/fragment pair. It
+deliberately does not inject `mc_chunkFade`, preventing that dependency from
+being hidden by the test harness.
+
+This is a callback/interface compilation test. It does not execute Colorwheel's
+Java AST transformer, generated Create instance/material shaders, actual draw
+submission or OIT accumulation/compositing. The 1.21.1 and 26.3 runs below are
+shader source/macro checks, not evidence that the pinned 1.20.1 mod binary can
+run on those game versions.
+
+- 1,176 pairs: seven program types, three dimensions, seven profiles, TAA on/off,
+  1.20.1/1.21.1, legacy/modern-Iris macro environments.
+- 252 PBR stress pairs: Low/Ultra with custom PBR, POM/cutout, anisotropic
+  filtering, puddles, active jitter and shadows; cutout/emissive/overlay inputs.
+- 84 pairs with DH macros and 84 with Voxy macros, checking shader-level
+  coexistence with the pack's distant-depth integration.
+- Unit regressions cover opacity, shadow tint, cutout ownership, AO/fade input,
+  OIT formats, shadow activation and color-only outputs for special blend modes.
+- CI fetches the pinned Colorwheel source and repeats these checks separately
+  from the ordinary shader compilation matrix.
+
+Reproduce with Python 3.10+, cpp/clang, glslang and a Colorwheel checkout:
+
+```sh
+python3 -m unittest discover -s tests -v
+python3 scripts/validate_shader.py
+python3 scripts/compile_colorwheel.py --colorwheel-source /path/to/Colorwheel --report /tmp/colorwheel.json
+```
+
+## Runtime scope and known upstream limits
+
+Use compatible game, loader, Iris/Oculus, Flywheel, Create and Colorwheel
+versions; record all versions and GPU/driver details. Confirm the active backend
+using `/flywheel backend` and check that it reports `colorwheel:instancing`
+(or the appropriate enabled Colorwheel backend for that installation).
+
+Inspect rotating cogwheels, shafts, water wheels, lit train tracks, tinted glass
+contraptions, overlay effects and destruction cracks in all dimensions and
+profiles, with shadows and TAA on/off. Compare tinted shadows and translucent
+opacity from several angles, and reload/resize/change dimensions. Test optional
+PBR and one LOD renderer at a time. Capture logs and matching screenshots and
+frame times before claiming runtime compatibility or a performance improvement.
+
+Colorwheel's documented render order/OIT limitations remain: translucent
+contraptions and ordinary translucent terrain/water are not fully composited
+together in every viewing order. These are not fixed by passing compilation.
+No in-game test is recorded for this update.
+
+Primary references: [program/material integration](https://djefrey.github.io/colorwheel/guides/adapt-your-shaderpack/1_programs/),
+[OIT contracts and limits](https://djefrey.github.io/colorwheel/guides/adapt-your-shaderpack/2_oit/),
+[native callback source](https://github.com/djefrey/Colorwheel/blob/0a3e94b7b300ebf188ef030a8ff14734408ec85d/common/src/main/resources/assets/colorwheel/flywheel/internal/iris_compat.frag)
+and [program selection/blend groups](https://github.com/djefrey/Colorwheel/blob/0a3e94b7b300ebf188ef030a8ff14734408ec85d/common/src/main/java/dev/djefrey/colorwheel/shaderpack/ClrwlProgramId.java).
+
+---
+
 # v1.3.0 experimental Voxy integration
 
 Implemented against Voxy's API-3 macro and version-1 shaderpack descriptor,

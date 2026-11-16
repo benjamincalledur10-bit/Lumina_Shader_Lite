@@ -120,7 +120,8 @@ def main() -> int:
     files = sorted(p for p in SHADERS.glob("world*/*.vsh")
                    if not p.name.startswith("clrwl_") and (args.dh or not p.name.startswith("dh_")))
     # These are the runtime graphics programs. clrwl_* belongs to the external
-    # Colorwheel/Create integration; shadowcomp.csh is disabled by Lite's COLORED_LIGHTING=0.
+    # Colorwheel/Create integration, validated separately by compile_colorwheel.py;
+    # shadowcomp.csh is disabled by Lite's COLORED_LIGHTING=0.
     prepared = {(p, profile, stage): apply_options(expand(p.with_suffix(stage)), options[profile] | overrides)
                 for p in files for profile in args.profiles for stage in (".vsh", ".fsh")}
     cases = [(version, loader, profile, path) for version in args.versions for loader in args.loaders

@@ -4,6 +4,18 @@
 
 ### Experimental mod compatibility
 
+- Audited and extended Create/Flywheel integration through Colorwheel: explicit
+  compatibility-profile programs in all dimensions, plus color-only additive,
+  lightning, glint and crumbling passes that preserve Gbuffer metadata.
+- Fixed Colorwheel overlays changing translucent opacity, repeated shadow tint,
+  vertex opacity being treated as ambient occlusion, a premature terrain alpha
+  discard, missing alpha in OIT material storage, and chunk-fade dependencies on
+  instanced geometry. Disabled Colorwheel shadows when shadow quality is off.
+- Added Colorwheel callback compilation, material regressions and CI checks
+  against a pinned upstream callback source, including PBR/POM, DH and Voxy
+  macro paths. Actual Create/Flywheel instance generation and rendering still
+  require in-game validation; no performance gain is claimed.
+
 - Added Voxy API-3 shaderpack integration for opaque terrain and basic
   translucency in the Overworld, Nether and End, using Lumina's lighting.
 - Routed Voxy's native depth textures and projection matrices through the

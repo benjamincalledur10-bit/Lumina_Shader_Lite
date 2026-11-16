@@ -158,7 +158,8 @@ void main() {
         vec4 overlayColor;
         
         clrwl_computeFragment(colorP, colorP, lmCoord, ao, overlayColor);
-        vec4 color = mix(colorP, overlayColor, overlayColor.a);
+        vec4 color = colorP;
+        color.rgb = mix(color.rgb, overlayColor.rgb, overlayColor.a);
         lmCoord = clamp((lmCoord - 1.0 / 32.0) * 32.0 / 30.0, 0.0, 1.0);
     #else
         vec4 color = colorP * vec4(glColor.rgb, 1.0);
@@ -376,6 +377,10 @@ void main() {
     lmCoord  = GetLightMapCoordinates();
 
     glColor = gl_Color;
+    #ifdef GBUFFERS_COLORWHEEL_TRANSLUCENT
+        // The material callback handles opacity and AO separately.
+        glColor.a = 1.0;
+    #endif
 
     mat = int(mc_Entity.x + 0.5);
 
@@ -420,7 +425,11 @@ void main() {
     #endif
 
     #ifdef IRIS_FEATURE_FADE_VARIABLE
-        chunkFade = mc_chunkFade;
+        #ifdef GBUFFERS_COLORWHEEL_TRANSLUCENT
+            chunkFade = 1.0;
+        #else
+            chunkFade = mc_chunkFade;
+        #endif
     #endif
 }
 

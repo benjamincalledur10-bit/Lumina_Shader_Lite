@@ -69,6 +69,26 @@ jobs:
       - name: Compile Voxy optional effects
         run: python scripts/compile_voxy.py --voxy-source .voxy-reference --profiles LOW ULTRA --option BLOOM_ENABLED=-1 --option MOTION_BLUR_EFFECT=-1 --option WORLD_BLUR=2 --option CLOUD_SHADOWS=true --option LIGHT_COLOR_MULTS=true --option ATM_COLOR_MULTS=true --report reports/voxy-effects.json
 
+      - name: Check out the reviewed Colorwheel callback sources
+        uses: actions/checkout@v6
+        with:
+          repository: djefrey/Colorwheel
+          ref: 0a3e94b7b300ebf188ef030a8ff14734408ec85d
+          path: .colorwheel-reference
+          persist-credentials: false
+
+      - name: Link Colorwheel material callbacks and all transparency programs
+        run: python scripts/compile_colorwheel.py --colorwheel-source .colorwheel-reference --report reports/colorwheel.json
+
+      - name: Compile Colorwheel PBR and material stress paths
+        run: python scripts/compile_colorwheel.py --colorwheel-source .colorwheel-reference --versions 1.21.1 --loaders iris-modern --profiles LOW ULTRA --materials cutout emissive overlay --option RP_MODE=2 --option POM=true --option POM_ALLOW_CUTOUT=true --option ANISOTROPIC_FILTER=16 --option RAIN_PUDDLES=3 --option TAA_JITTER=3 --option ENTITY_SHADOW=2 --option SHADOW_QUALITY=3 --report reports/colorwheel-pbr.json
+
+      - name: Compile Colorwheel with Distant Horizons depth paths
+        run: python scripts/compile_colorwheel.py --colorwheel-source .colorwheel-reference --versions 1.21.1 --loaders iris-modern --profiles LOW ULTRA --dh --report reports/colorwheel-dh.json
+
+      - name: Compile Colorwheel with Voxy depth paths
+        run: python scripts/compile_colorwheel.py --colorwheel-source .colorwheel-reference --versions 26.3 --loaders iris-modern --profiles LOW ULTRA --voxy --report reports/colorwheel-voxy.json
+
       - name: Compile PBR and AMD workaround paths
         run: python scripts/compile_shader.py --versions 1.16.5 26.3 --option RP_MODE=2 --vendor AMD --report reports/pbr.json
 

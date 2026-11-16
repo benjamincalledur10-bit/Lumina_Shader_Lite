@@ -30,7 +30,10 @@ float sunVisibility = clamp(SdotU + 0.0625, 0.0, 0.125) / 0.125;
 
 //Common Functions//
 void DoNaturalShadowCalculation(inout vec4 color1, inout vec4 color2) {
-    color1.rgb *= glColor.rgb;
+    #ifndef SHADOW_COLORWHEEL
+        // Colorwheel's callback already multiplies by the material vertex color.
+        color1.rgb *= glColor.rgb;
+    #endif
     color1.rgb = mix(vec3(1.0), color1.rgb, pow(color1.a, (1.0 - color1.a) * 0.5) * 1.05);
     color1.rgb *= 1.0 - pow(color1.a, 64.0);
     color1.rgb *= 0.1; // 423HDSS: Shadow color strength is stored 10 times lower to allow for water shadows going above 1.0
@@ -119,7 +122,9 @@ void main() {
 
                     #if MC_VERSION >= 11300
                         #if WATERCOLOR_MODE >= 2
-                            color1.rgb *= glColor.rgb;
+                            #ifndef SHADOW_COLORWHEEL
+                                color1.rgb *= glColor.rgb;
+                            #endif
                         #else
                             color1.rgb *= vec3(0.3, 0.45, 0.9);
                         #endif

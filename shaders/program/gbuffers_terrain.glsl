@@ -191,7 +191,7 @@ void main() {
 
     float smoothnessD = 0.0, materialMask = 0.0;
 
-    #if !defined POM || !defined POM_ALLOW_CUTOUT
+    #if (!defined POM || !defined POM_ALLOW_CUTOUT) && !defined GBUFFERS_COLORWHEEL
         if (color.a <= 0.00001) discard; // 6WIR4HT23
     #endif
 
@@ -444,7 +444,12 @@ void main() {
     lmCoord  = GetLightMapCoordinates();
 
     glColorRaw = gl_Color;
-    if (glColorRaw.a < 0.1) glColorRaw.a = 1.0;
+    #ifdef GBUFFERS_COLORWHEEL
+        // Flywheel applies AO in its material callback; vertex alpha is opacity.
+        glColorRaw.a = 1.0;
+    #else
+        if (glColorRaw.a < 0.1) glColorRaw.a = 1.0;
+    #endif
     glColor = glColorRaw;
 
     normal = normalize(gl_NormalMatrix * gl_Normal);
@@ -512,7 +517,12 @@ void main() {
     #endif
 
     #ifdef IRIS_FEATURE_FADE_VARIABLE
-        chunkFade = mc_chunkFade;
+        #ifdef GBUFFERS_COLORWHEEL
+            // Instanced geometry is not an Iris chunk mesh.
+            chunkFade = 1.0;
+        #else
+            chunkFade = mc_chunkFade;
+        #endif
     #endif
 }
 

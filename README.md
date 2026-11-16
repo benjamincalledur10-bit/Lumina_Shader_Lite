@@ -49,6 +49,7 @@ installing it. Availability on Modrinth and CurseForge may differ.
 | Shader loaders | Iris and OptiFine |
 | Rendering profiles | Potato, Very Low, Low, Medium, High, Very High, Ultra |
 | Voxy | Experimental API-3 integration on `luminalitedev` for v1.3.0; not included in stable v1.2.9 |
+| Create / Flywheel | Expanded Colorwheel integration on `luminalitedev` for v1.3.0; in-game validation pending |
 | Edition | Java Edition only; Bedrock Edition is not supported |
 
 [Iris](https://www.irisshaders.dev/) is recommended for modern Minecraft
