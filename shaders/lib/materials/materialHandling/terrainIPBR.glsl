@@ -2672,31 +2672,31 @@ if (mat < 11024) {
                     } else {
                         if (mat < 11008) {
                             if (mat < 11000) {
-                                if (mat < 10996) { //
-
+                                if (mat < 10996) { // Supplementaries: stone/deepslate lamps
+                                    emission = GetSupplementariesEmission(color.rgb, mat);
                                 }
-                                else /*if (mat < 11000)*/ { //
-
+                                else /*if (mat < 11000)*/ { // Supplementaries: blackstone lamp
+                                    emission = GetSupplementariesEmission(color.rgb, mat);
                                 }
                             } else {
-                                if (mat < 11004) { //
-
+                                if (mat < 11004) { // Supplementaries: end-stone lamp
+                                    emission = GetSupplementariesEmission(color.rgb, mat);
                                 }
-                                else /*if (mat < 11008)*/ { //
-
+                                else /*if (mat < 11008)*/ { // Supplementaries: lit warm sconces
+                                    emission = GetSupplementariesEmission(color.rgb, mat);
                                 }
                             }
                         } else {
                             if (mat < 11016) {
-                                if (mat < 11012) { //
-
+                                if (mat < 11012) { // Supplementaries: lit soul sconces
+                                    emission = GetSupplementariesEmission(color.rgb, mat);
                                 }
-                                else /*if (mat < 11016)*/ { //
-
+                                else /*if (mat < 11016)*/ { // Supplementaries: lit green sconces
+                                    emission = GetSupplementariesEmission(color.rgb, mat);
                                 }
                             } else {
-                                if (mat < 11020) { //
-
+                                if (mat < 11020) { // Supplementaries: unpowered redstone lantern
+                                    emission = GetSupplementariesEmission(color.rgb, mat);
                                 }
                                 else /*if (mat < 11024)*/ { //
 

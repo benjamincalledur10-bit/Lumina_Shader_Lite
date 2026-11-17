@@ -4,6 +4,14 @@
 
 ### Experimental mod compatibility
 
+- Added IntegratedPBR support for 12 Supplementaries lights: stone/deepslate,
+  blackstone and end-stone lamps, normal/soul/green sconces and wall variants,
+  the sconce lever and the redstone lantern.
+- Map only lit sconces and the unpowered (lit) redstone lantern. Color masks
+  preserve the default stone/metal frames and original texture colors; Voxy
+  shares the same emission helper. Added state and numerical color regressions.
+- This is light-material support, not an audit of all Supplementaries effects.
+
 - Audited and extended Create/Flywheel integration through Colorwheel: explicit
   compatibility-profile programs in all dimensions, plus color-only additive,
   lightning, glint and crumbling passes that preserve Gbuffer metadata.

@@ -96,6 +96,11 @@ void voxy_emitFragment(VoxyFragmentParameters parameters) {
     float emission = 0.0;
     if (material == 10068) emission = min(3.75 * LAVA_EMISSIVE_INTENSITY * LAVA_BRIGHTNESS * 0.01, LAVA_EMISSION_LIMIT);
     if (material == 10412 || material == 10028) emission = 2.5;
+    #ifdef IPBR
+        if (material >= 10992 && material < 11020) {
+            emission = GetSupplementariesEmission(color.rgb, material);
+        }
+    #endif
     vec3 shadowMult = vec3(1.0);
     int subsurface = material == 10009 ? 1 : 0;
     DoLighting(color, shadowMult, playerPos, viewPos, distanceToCamera, normal, normal, 0.5,

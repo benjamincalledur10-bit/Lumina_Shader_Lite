@@ -656,6 +656,9 @@
     #endif
 
     #include "/lib/util/commonFunctions.glsl"
+    #ifdef IPBR
+        #include "/lib/materials/materialMethods/supplementariesEmission.glsl"
+    #endif
 
     #ifndef DISTANT_HORIZONS
         float renderDistance = far;

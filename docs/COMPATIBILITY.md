@@ -1,3 +1,71 @@
+# v1.3.0 Supplementaries light materials
+
+Reviewed November 17, 2026 against the official 1.21.1 source at
+[`0684391`](https://github.com/MehVahdJukaar/Supplementaries/tree/068439132a76dc3337d00083980b3f251df0c7a9).
+This adds visual materials to specific blocks. It does not imply that the mod
+previously could not run with Lumina, or that all its custom renderers, post
+effects and third-party extensions have been verified. Stable v1.2.9 does not
+contain these mappings.
+
+| Block(s), with `supplementaries:` namespace | Material | Selection |
+| --- | --- | --- |
+| `stone_lamp`, `deepslate_lamp` | 10992 | Always luminous |
+| `blackstone_lamp` | 10996 | Always luminous |
+| `end_stone_lamp` | 11000 | All rune variants; magenta rune pixels emit |
+| `sconce`, `sconce_wall`, `sconce_lever` | 11005 | `lit=true` |
+| `sconce_soul`, `sconce_wall_soul` | 11009 | `lit=true` |
+| `sconce_green`, `sconce_wall_green` | 11013 | `lit=true` |
+| `redstone_lantern` | 11017 | `powered=false`; powering it switches it OFF |
+
+Explicit namespaces and previously empty material slots preserve existing
+vanilla mappings. Sconce/lantern IDs retain partial-block classification.
+Facing, hanging, waterlogging and rune changes do not replace the mod's own
+state behavior. The sconce lever's power state does not control its flame:
+`lit` does. Off states receive no Supplementaries emissive mapping.
+
+IntegratedPBR uses a scalar color mask with warm, cyan, magenta, green and red
+responses. No texture recoloring, forced lightmap, render pass, sampler, uniform
+or menu option is added. The ordinary terrain branch evaluates it only for
+mapped materials; Voxy uses the same function with its `customId`. DH retains
+its generic illuminated-LOD treatment. SEUS/labPBR modes use resource-pack
+emission maps; RP_MODE=0 does not enable this IntegratedPBR effect.
+
+Masks were checked against the reviewed base textures. Resource packs that
+change those colors may change the mask result; custom PBR emission maps are
+the alternative for explicit per-pixel emission. Averaged Voxy LOD textures
+can show simplified emission at distance.
+
+`tests/test_supplementaries.py` checks selectors across game-version branches,
+including off states and the inverted redstone-lantern condition. It executes
+the actual scalar GLSL helper as C99 against independent light/frame RGB
+samples from upstream textures: light samples must emit, frame samples and
+unmapped IDs must not. This requires a C compiler, provided on CI. These are
+numerical/source checks, not GPU image comparisons.
+
+Local validation with glslang 16.6.0 passed: 2,352 ordinary program pairs at
+1.21.1/26.3 across all profiles and OptiFine/modern-Iris macro environments;
+360 DH pairs, 168 labPBR pairs, 252 Colorwheel callback pairs and 126 Voxy
+callback/TAA cases. These counts describe offline compilation coverage.
+
+Reproduce with the usual unittest and validator commands. The existing compile
+jobs also cover the shared helper in terrain, held-item, entity, Voxy and
+Colorwheel paths. The reviewed game-version macros do not certify every mod
+binary/version combination.
+
+For runtime acceptance, inspect all 12 blocks at day/night and underwater,
+toggle sconces and redstone power, change lever power independently of its
+flame, cycle end-stone runes, and compare nearby meshes with distant LODs.
+Inspect resource packs separately. Dynamic jar contents, colored candle holders,
+optional cross-mod sconce variants, item-specific mappings and custom post
+effects are outside this initial light-material integration.
+
+Primary references: [registration and light levels](https://github.com/MehVahdJukaar/Supplementaries/blob/068439132a76dc3337d00083980b3f251df0c7a9/common/src/main/java/net/mehvahdjukaar/supplementaries/reg/ModRegistry.java),
+[sconce states](https://github.com/MehVahdJukaar/Supplementaries/blob/068439132a76dc3337d00083980b3f251df0c7a9/common/src/main/java/net/mehvahdjukaar/supplementaries/common/block/blocks/SconceBlock.java),
+[redstone lantern](https://github.com/MehVahdJukaar/Supplementaries/blob/068439132a76dc3337d00083980b3f251df0c7a9/common/src/main/java/net/mehvahdjukaar/supplementaries/common/block/blocks/RedstoneLanternBlock.java)
+and [default models](https://github.com/MehVahdJukaar/Supplementaries/tree/068439132a76dc3337d00083980b3f251df0c7a9/common/src/main/resources/assets/supplementaries/models/block).
+
+---
+
 # v1.3.0 Create/Flywheel integration through Colorwheel
 
 Reviewed November 16, 2026 against Colorwheel source commit
